@@ -1,0 +1,218 @@
+/*********************** Generales ************************/
+* {
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    margin: 0;
+}
+body, html {
+    height: 100%;
+    min-width: 320px;
+}
+
+a {
+    text-decoration: none;
+}
+
+li {
+    list-style: none;
+}
+/* Color de la letra */
+.colorVerde {
+    color: #669699;
+}
+
+#cabecera {
+    width: 100%;
+    border-bottom: thin solid #669699;
+    background: #f8f9fd no-repeat  url("../img/fondo-cabecera.jpg");
+    background-size: cover;  
+    height: 200px; 
+}
+
+.letraCursiva {
+    font-family: 'Kaushan Script', cursive;
+}
+
+.migasPan {
+    color: grey;
+}
+.migasPanActivo {
+    color: black;
+}
+
+li.breadcrumb-item a:hover {
+    color: lightgrey;
+}
+
+.boton {
+    border: 2px solid #669699;
+    color: #669699;
+    transition: .25s ease-in-out;
+}
+
+.boton:hover {
+    background-color: #9dc5c7;
+    color: white;
+}
+
+.boton2 {
+    background-color: #90b6b8;
+    border: 2px solid #669699;
+    color: white;
+}
+
+a.boton2:hover, input.boton2:hover, button.boton2:hover {
+    background-color: whitesmoke;
+    color: #669699;
+}
+
+p:not(footer p) {
+    line-height: 36px;
+    text-align: justify;
+}
+
+body#cuidados #flecha {
+    color: rgb(59, 59, 59);
+}
+
+#flecha {
+    color: #669699;
+}
+
+#flecha:hover, body#cuidados #flecha:hover {
+    color: #9dc5c7;
+}
+
+
+
+/*********************** Index ************************/
+
+span.text-info {
+    cursor: help;
+}
+
+div.offcanvas-header {
+    text-align: center;
+}
+
+
+/*********************** Footer ************************/
+
+.descripcion_footer {
+    background: no-repeat left top url("../img/botanic.png");
+    background-size: 35rem;
+    font-weight: 600;
+}
+footer a {
+    color: black;
+}
+
+footer a:hover {
+    color: #669699;
+}
+
+.letra1-1rem {
+    font-size: 1.1rem;
+}
+
+
+/*********************** Formulario ************************/
+
+form#contacto {
+    border: 2px solid #669699;
+    border-radius: 10px;
+    background-color: rgb(253, 253, 253);
+}   
+
+form#contacto input:not([type=submit]):not([type=checkbox]) {
+    border: none;
+    border-radius: 0;
+    border-bottom: 3px solid #669699;
+    background-color: rgb(253, 253, 253);
+}
+
+form#contacto textarea {
+    border: 3px solid #669699;
+}
+
+/*********************** Perfil ************************/
+
+.fondoTarjeta {
+    border-radius: 20px;
+    background-color: #90b6b8;
+    border: 5px solid #669699;
+}
+
+div#perfil2 {
+    border-top: 5px solid #669699;
+    border-bottom: 5px solid #669699;
+    border-right: 5px solid #669699;
+    border-top-right-radius: 15px;
+    border-bottom-right-radius: 15px;
+    margin-left: -20px;  
+    margin-top: 48px;
+}
+
+
+
+/*********************** Cuidados ************************/
+
+ul#listaCuidados a {
+    color: #669699;
+    transition: box-shadow .4s ease-in;
+}
+
+ul#listaCuidados a:hover {
+    color: #9dc5c7;
+    box-shadow: inset 0 -2px #9dc5c7; 
+}
+
+section#ubicacion {
+    background: url("../img/ventana.png") fixed no-repeat;
+    background-size: cover;
+}
+
+section#riego {
+    background: url("../img/riego.png") fixed ;
+    background-size: cover;
+}
+
+section#sustrato {
+    background: url("../img/sustrato.png") fixed no-repeat;
+    background-size: cover;
+}
+
+.divParallax {
+    background-color: rgba(245, 245, 245, 0.89); 
+}
+
+
+
+/****** Media queries ******/
+
+@media (max-width: 420px) {
+    html { font-size: 12px; }
+    #cabecera {
+        padding: 0; 
+        background-image: url("../img/fondo-cabecera2.jpg");
+    }
+    
+}
+
+@media (max-width: 768px) {
+    div#perfil2 {
+        border-top: none;
+        margin: -20px 0 0;
+        border-left: 5px solid #669699;
+        border-bottom-left-radius: 15px;
+        border-top-right-radius: 0;
+    }
+    a#busqueda {
+        margin-bottom: 10px;
+    }
+
+    div.ancho50 {
+        width: 50%;
+    }
+}
