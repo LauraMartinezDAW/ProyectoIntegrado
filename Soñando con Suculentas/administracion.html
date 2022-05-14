@@ -21,7 +21,7 @@
 <body>
     <header class="mb-lg-5 mb-xl-5 mb-2">
         <div id="cabecera" class="d-flex justify-content-center align-items-center p-sm-5 p-lg-5 mb-3">
-            <h1 class="display-2 letraCursiva colorVerde">Soñando con Suculentas</h1>
+            <h1><a class="display-2 letraCursiva colorVerde" href="index.html">Soñando con Suculentas</a></h1>
         </div>
     </header>
 
@@ -74,8 +74,7 @@
     <main class="container row my-5 p-md-5 mx-lg-0 mx-auto">
         <div class="col-lg-2">
             <a class="btn boton col-12 mb-3" role="button" id="editarUsuarios" href="#editaUsuario">Editar usuarios</a></li>
-            <a class="btn boton col-12 mb-3" role="button" id="editarPagina" href="#editaPagina">Editar página</a></li>
-            <a class="btn boton col-12 mb-3" role="button" id="editarAdministrador" href="#editaAdministrador">Editar administrador</a></li>
+            <a class="btn boton col-12 mb-3" role="button" id="editarPagina" href="#editaPagina">Editar tienda</a></li>
         </div>
         <div class="accordion col-lg-8 mx-auto" id="accordionExample">
             <div  class="accordion-item">
@@ -87,9 +86,9 @@
                 <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
                     <div class="accordion-body">
                         <div class="list-group">
-                            <a href="#" class="list-group-item list-group-item-action">Crear usuario</a>
-                            <a href="#" class="list-group-item list-group-item-action">Eliminar usuario</a>
-                            <a href="#" class="list-group-item list-group-item-action">Modificar usuario</a>
+                            <a href="crearUsuario.html" class="list-group-item list-group-item-action">Crear usuario</a>
+                            <a href="eliminarUsuario.html" class="list-group-item list-group-item-action">Eliminar usuario</a>
+                            <a href="modificarUsuario.html" class="list-group-item list-group-item-action">Modificar usuario</a>
                         </div>
                     </div>
                 </div>
@@ -98,30 +97,18 @@
             <div  class="accordion-item">
                 <h2 class="accordion-header" id="headingTwo">
                     <button id="editaPagina" class="accordion-button letraCursiva fs-2" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
-                        Editar página
+                        Editar tienda
                     </button>
                 </h2>
                 <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
                     <div class="accordion-body">
-                        <a href="#" class="list-group-item list-group-item-action">Añadir contenido</a>
-                        <a href="#" class="list-group-item list-group-item-action">Eliminar contenido</a>
-                        <a href="#" class="list-group-item list-group-item-action">Modificar contenido</a>
+                        <a href="agregarProducto.html" class="list-group-item list-group-item-action">Añadir producto</a>
+                        <a href="eliminarProducto.html" class="list-group-item list-group-item-action">Eliminar producto</a>
+                        <a href="modificarProducto.html" class="list-group-item list-group-item-action">Modificar producto</a>
                     </div>
                 </div>
             </div>
 
-            <div  class="accordion-item">
-                <h2 class="accordion-header" id="headingThree">
-                    <button id="editaAdministrador" class="accordion-button letraCursiva fs-2" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="true" aria-controls="collapseThree">
-                        Establecer o quitar administrador
-                    </button>
-                </h2>
-                <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
-                    <div class="accordion-body">
-                        <a href="#" class="list-group-item list-group-item-action">Modificar administrador</a>
-                    </div>
-                </div>
-            </div>
         </div>        
     </main>
 
@@ -135,7 +122,6 @@
         <section class="pt-4 border-top ">
             <div class="container text-center text-md-start mt-5 ">
                 <div class="row mt-3">
-
                     <div class="col-md-3 col-lg-3 col-xl-3 pt-2 mx-auto mb-4 text-dark">
                         <h6 class="text-uppercase mb-3 letraCursiva fw-bold fs-5">Soñando con suculentas</h6>
                         <p class="letra1-1rem text-center"> Un espacio para disfrutar de las suculentas, compartiendo experiencias e
@@ -147,20 +133,16 @@
                         <h6 class="text-uppercase fw-bold mb-4">Links de interés</h6>
                         <p><a target="_blank" href="https://succulentalley.com/types-of-succulents-with-pictures/">Identificación de suculentas</a></p>
                         <p><a target="_blank" href="http://www.manolithops.es/">Página sobre Lithops</a></p>
-                        <p><a target="_blank" href="https://carniplant.es/tienda02/">Tienda de suculentas</a></p>
+                        <p><a target="_blank" href="https://viverosaznaljarafe.com/">Vivero Aznaljarafe</a></p>
+                        <p><a target="_blank" href="https://www.viverosbalbuena.com/">Vivero Balbuena</a></p>
                         <p><a target="_blank" href="https://foro.infojardin.com/forums/10-suculentas-no-cactaceas.39/">Foro de plantas suculentas no cactáceas</a></p>
                     </div>
 
                     <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4 ps-4">
                         <!-- Links -->
-                        <h6 class="text-uppercase fw-bold mb-4">
-                            Contacto
-                        </h6>
-                        <p>
-                            <a href="formulario.html"><i class="fas fa-align-justify me-3"></i>Rellena nuestro formulario</a></p>
-                        <p>
-                            <a href="mailto:scs@gmail.com"><i class="fas fa-envelope me-3"></i>Mándanos un email</a>
-                        </p>
+                        <h6 id="contactoFooter" class="text-uppercase fw-bold mb-4">Contacto</h6>
+                        <p><a href="formulario.html"><i class="fas fa-align-justify me-3"></i>Rellena nuestro formulario</a></p>
+                        <p><a href="mailto:scs@gmail.com"><i class="fas fa-envelope me-3"></i>Mándanos un email</a></p>
                         <p class="mb-0 fs-5"> Visita nuestras Redes Sociales</p>
                         <div class="d-flex justify-content-center">
                             <div class="d-inline-flex">
