@@ -27,7 +27,11 @@ li {
     border-bottom: thin solid #669699;
     background: #f8f9fd no-repeat  url("../img/fondo-cabecera.jpg");
     background-size: cover;  
-    height: 200px; 
+    height: 150px; 
+}
+
+#cabecera a:hover {
+    color: #669699;
 }
 
 .letraCursiva {
@@ -117,9 +121,9 @@ footer a:hover {
 }
 
 
-/*********************** Formulario ************************/
+/*********************** Formularios ************************/
 
-form#contacto {
+form#contacto, form#valoracion, form#crearUsuario, form#sistPago, #compraFinalizada {
     border: 2px solid #669699;
     border-radius: 10px;
     background-color: rgb(253, 253, 253);
@@ -135,6 +139,8 @@ form#contacto input:not([type=submit]):not([type=checkbox]) {
 form#contacto textarea {
     border: 3px solid #669699;
 }
+
+
 
 /*********************** Perfil ************************/
 
@@ -188,6 +194,14 @@ section#sustrato {
 }
 
 
+/*********************** Producto ************************/
+
+div.card-body, div#tarjetaProducto {
+    background-color: rgb(253, 253, 253);
+}
+
+
+
 
 /****** Media queries ******/
 
@@ -214,5 +228,15 @@ section#sustrato {
 
     div.ancho50 {
         width: 50%;
+    }
+
+    div.tarjetaCesta h3{
+        font-size: 26px;
+    }
+}
+
+@media (max-width: 991px) and (min-width: 769px) {
+    div.tarjetaCesta h3{
+        font-size: 18px;
     }
 }
