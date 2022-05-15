@@ -100,16 +100,16 @@ div.offcanvas-header {
     text-align: center;
 }
 
-img.card-img-top {
+div.div-img img.card-img-top {
     transition: all 0.5s linear;
     overflow: hidden;
 }
 
-img.card-img-top:hover {
+div.div-img img.card-img-top:hover {
     transform: scale(1.5, 1.5);
 }
 
-div#div-img {
+div.div-img {
     overflow: hidden;
 }
 
