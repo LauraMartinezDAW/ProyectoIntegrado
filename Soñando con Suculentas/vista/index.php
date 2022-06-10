@@ -6,17 +6,45 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <!-- cdn para los iconos propios de Bootstrap -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
-    <link href="css/bootstrap.css" rel="stylesheet"/>
-    <link rel="stylesheet" href="css/style.css"/>
-    <link rel="shortcut icon" href="img/botanic.svg" type="image/x-icon" />
+    <link href="../css/bootstrap.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="../css/style.css"/>
+    <link rel="shortcut icon" href="../img/botanic.svg" type="image/x-icon" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Kaushan+Script&family=Merienda:wght@400;700&display=swap" rel="stylesheet">
     <script src="https://kit.fontawesome.com/16f71d5ae1.js" crossorigin="anonymous"></script>
+    <!-- cdn de sweetAlert -->
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <title>Soñando con Suculentas</title>
   </head>
 
   <body>
+    <?php
+      if (session_status() == PHP_SESSION_NONE) {
+          session_start();
+      }
+    // Si hay usuario en la sesión
+      if (isset($_SESSION["usuario"])) {
+        // Guardo el nombre de usuario
+        $usuario = $_SESSION["usuario"];
+
+        // Guardo
+        /* $_SESSION["fechaSesion"] = date("j-n-Y H:i:s"); 
+        echo "FECHA Y HORA INICIO SESION " . $_SESSION["fechaSesion"];*/
+
+        // Deshabilito el offcanvas de inicio de sesión / registro
+        $bsTarjet = "";
+        // Habilito el enlace al perfil de usuario
+        $href = "../vista/perfil.html";
+
+      } else {
+        $usuario = "Inicia sesión";
+        $bsTarjet = "#iniciaSesion";
+        $href = "";
+        echo "<script></script>";
+      }
+    ?>
+
     <header class="mb-lg-5 mb-xl-5 mb-2">
       <div id="cabecera" class="d-flex justify-content-center align-items-center p-sm-5 p-lg-5 mb-3">
         <h1 class="display-2 letraCursiva colorVerde">Soñando con Suculentas</h1>
@@ -42,18 +70,37 @@
             <li class="nav-item">
                 <a class="nav-link fs-5 me-2" href="cuidados.html#sustrato">Sustrato</a>    
             </li>
-            <li class="nav-item">
-                <a class="nav-link fs-5 " href="#contactoFooter">Contacto</a>    
+            <li class='nav-item'>
+              <a class='nav-link fs-5' href='#contactoFooter'>Contacto</a>    
             </li>
+            <?php
+
+              if (isset($_SESSION["usuario"])) {
+                echo "<li class='nav-item'>
+                      <a class='nav-link fs-5' href='../controlador/ctrTienda.php'>Tienda</a>    
+                    </li>";
+
+                if (isset($_SESSION["admin"])) {
+                  echo "<li class='nav-item'>
+                        <a class='nav-link fs-5' href='../vista/administracion.php'>Administración</a>    
+                  </li>";
+                }
+              }
+            ?>
+
         </ul>
           <div class="d-flex p-0 flex-md-row flex-column ancho50">
-            <a id="busqueda" class="me-4 px-3 py-2 rounded-pill fw-bold boton text-center" role="button" data-bs-toggle="offcanvas" data-bs-target="#iniciaSesion" aria-controls="offcanvasExample">
-              Inicia sesión
+            <a href="<?=$href?>" class="me-4 px-3 py-2 rounded-pill fw-bold boton text-center" role="button" data-bs-toggle="offcanvas" data-bs-target="<?=$bsTarjet?>" aria-controls="offcanvasExample">
+              <?=$usuario?>
             </a>
-            <form class="d-flex ">
-              <input  class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-              <button  class="btn boton" type="submit">Buscar</button>
-            </form>
+            <?php
+              if (isset($_SESSION["usuario"])) {
+                echo "<button id='botonCerrarSesion' class='me-4 px-3 py-2 rounded-pill fw-bold boton text-center'>Cerrar sesión</button>";
+                echo "<script>
+                        let hayUsuario = " . isset($_SESSION["usuario"]). ";          
+                    </script>";
+              }
+            ?>
           </div>
         </div>
       </div>
@@ -68,7 +115,7 @@
                 <h1 class="my-4 letraCursiva colorVerde">¿Qué son las plantas suculentas?</h1>
                 <p class="fs-5">Las plantas suculentas o crasas son aquellas en las que algún órgano está especializado en el almacenamiento de agua en cantidades mayores que las plantas sin esta adaptación. Estos órganos de reserva tienen una alta proporción de tejido <span class="text-info" title="tejidos encargados de la nutrición del vegetal">parenquimático</span>. Su adaptación les permite mantener reservas de agua durante períodos prolongados, y sobreviven a los largos períodos de sequía en climas áridos.</p>
 
-                <p class="fs-5">La adaptación de las suculentas les permite colonizar entornos áridos o en los que la captación de agua es limitada. Para posibilitar la captación de la escasa humedad presente en el ambiente, muchas suculentas son pubescentes, es decir, presentan una superficie cubierta de pelillos que retienen el rocío matutino. Otras técnicas empleadas para maximizar la retención de la humedad son la limitación del número de ramificaciones y la longitud de estas, así como el desarrollo de recubrimientos pruinosos en la superficie de hojas y tallos.</p>
+                <p class="fs-5">La adaptación de las suculentas les permite colonizar entornos áridos o en los que la captación de agua es limitada. Para posibilitar la captación de la escasa humedad presente en el ambiente, muchas suculentas son pubescentes, es decir, presentan una superficie cubierta de pelillos que retienen el rocío matutino. Otras técnicas empleadas para maximizar la retención de la humedad son la limitación del número de ramificaciones y la longitud de estas, así como el desarrollo de recubrimientos <span class="text-info" title="La pruina, también conocida como cera epicuticular, es un protector natural para nuestras suculentas con aspecto de polvillo blanquecino">pruinosos</span> en la superficie de hojas y tallos.</p>
 
                 <p class="fs-5">Los cactus presentan las hojas modificadas como espinas y los tallos suculentos y fotosintéticos.</p>
                 <p class="fs-5">Hay miles de especies de suculentas, clasificadas en varias familias.</p>
@@ -87,7 +134,7 @@
                     <h5 class="card-title text-center">Agavaceae</h5>
                   </div>
                   <div class="div-img">
-                    <img src="img/agave.jpg.webp" class="card-img-top" alt="Agave potatorum">
+                    <img src="../img/agave.jpg.webp" class="card-img-top" alt="Agave potatorum">
                   </div>
                   <h6 class="card-subtitle mt-2 text-muted pb-2 ps-2">Agave potatorum</h6>
                 </div>
@@ -99,7 +146,7 @@
                     <h5 class="card-title text-center">Aizoaceae</h5>
                   </div>
                   <div class="div-img">
-                    <img src="img/Lithops-karasmontana-1.jpg" class="card-img-top" alt="Lithops karasmontana">
+                    <img src="../img/Lithops-karasmontana-1.jpg" class="card-img-top" alt="Lithops karasmontana">
                   </div>
                   <h6 class="card-subtitle mt-2 text-muted pb-2 ps-2">Lithops karasmontana</h6>
                 </div>
@@ -111,7 +158,7 @@
                     <h5 class="card-title text-center">Apocynaceae</h5>
                   </div>
                   <div class="div-img">
-                    <img src="img/orbea.jpg" class="card-img-top" alt="...">
+                    <img src="../img/orbea.jpg" class="card-img-top" alt="...">
                   </div>
                   <h6 class="card-subtitle mt-2 text-muted pb-2 ps-2">Orbea variegata</h6>
                 </div>
@@ -123,7 +170,7 @@
                     <h5 class="card-title text-center">Asphodelaceae</h5>
                   </div>
                   <div class="div-img">
-                    <img src="img/haworthia_coarctata2.jpg" class="card-img-top" alt="Haworthia coarctata">
+                    <img src="../img/haworthia_coarctata2.jpg" class="card-img-top" alt="Haworthia coarctata">
                   </div>
                   <h6 class="card-subtitle mt-2 text-muted pb-2 ps-2">Haworthia coarctata</h6>
                 </div>
@@ -135,7 +182,7 @@
                     <h5 class="card-title text-center">Cactaceae</h5>
                   </div>
                   <div class="div-img">
-                    <img src="img/gymnocalycium-mihanovichii.jpg" class="card-img-top" alt="Gymnocalycium mihanovichii">
+                    <img src="../img/gymnocalycium-mihanovichii.jpg" class="card-img-top" alt="Gymnocalycium mihanovichii">
                   </div>
                   <h6 class="card-subtitle mt-2 text-muted pb-2 ps-2">Gymnocalycium mihanovichii</h6>
                 </div>
@@ -147,7 +194,7 @@
                     <h5 class="card-title text-center">Crassulaceae</h5>
                   </div>
                   <div class="div-img">
-                    <img src="img/graptopetalum-superbum.jpg" class="card-img-top" alt="Graptopetalum superbum">
+                    <img src="../img/graptopetalum-superbum.jpg" class="card-img-top" alt="Graptopetalum superbum">
                   </div>
                   <h6 class="card-subtitle mt-2 text-muted pb-2 ps-2">Graptopetalum superbum</h6>
                 </div>
@@ -159,7 +206,7 @@
                     <h5 class="card-title text-center">Euphorbiaceae</h5>
                   </div>
                   <div class="div-img">
-                    <img src="img/Euphorbia-lactea-White-Ghost.jpg" class="card-img-top" alt="Euphorbia lactea 'White Ghost'">
+                    <img src="../img/Euphorbia-lactea-White-Ghost.jpg" class="card-img-top" alt="Euphorbia lactea 'White Ghost'">
                   </div>
                   <h6 class="card-subtitle mt-2 text-muted pb-2 ps-2">Euphorbia lactea 'White Ghost'</h6>
                 </div>
@@ -171,7 +218,7 @@
                     <h5 class="card-title text-center">Portulacaceae</h5>
                   </div>
                   <div class="div-img">
-                    <img src="img/portulaca-gilliesii.jpg" class="card-img-top" alt="Portulaca gilliesii">
+                    <img src="../img/portulaca-gilliesii.jpg" class="card-img-top" alt="Portulaca gilliesii">
                   </div>
                   <h6 class="card-subtitle mt-2 text-muted pb-2 ps-2">Portulaca gilliesii</h6>
                 </div>
@@ -235,47 +282,94 @@
       </div>
   </footer>
 
-    <!-- Offcanvas iniciaSesion-->
+    <!-- Offcanvas iniciaSesion / Registro-->
     <div class="offcanvas offcanvas-start" tabindex="-1" id="iniciaSesion" aria-labelledby="offcanvasExampleLabel">
-      <div class="offcanvas-header">
-        <h5 class="offcanvas-title letraCursiva colorVerde">¿Tienes una cuenta?</h5>
+      <div class="offcanvas-header pb-2">
+        <h3 class="offcanvas-title letraCursiva colorVerde">Inicia sesión</h3>
         <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
       </div>
-      <div class="offcanvas-body pt-0">      
-        <form action="#" class="mb-5">
+      <div class="offcanvas-body pt-0">  
+        <!-- Formulario de inicio de sesión -->
+        <form action="../controlador/ctrIniciarSesion.php" method="POST" class="mb-5 pt-2 needs-validation" novalidate>
           <div class="mb-3">
-            <label for="email" class="form-label">Email</label>
-            <input type="email" class="form-control" id="email" placeholder="Escribe tu email...">
+            <input type="email" class="form-control" id="email" name="email" placeholder="Escribe tu email" required>
+            <div class="invalid-feedback">Debes introducir tu dirección de correo electrónico.</div>
           </div>
+          
           <div class="mb-3">
-              <label for="password" class="form-label">Contraseña</label>
-              <input type="password" class="form-control" id="password" placeholder="Elige una contraseña...">
+              <input type="password" class="form-control" name="password" placeholder="Introduce tu contraseña..." required>
+              <div class="invalid-feedback">Debes introducir tu contraseña.</div>
           </div>
           <div class="d-grid col-12">
-            <a href="administracion.html" role="button" class="btn text-center rounded-pill boton2">Iniciar sesión</a>
+            <input type="submit" class="btn text-center rounded-pill boton2" value="Iniciar sesión">
           </div>
         </form>
+
         <h5 class="letraCursiva colorVerde mt-5 mb-4">¿No tienes cuenta? <span class="display-6">¡Regístrate!</span></h5>
-        <form action="#" method="post">
+        <!-- Formulario de registro -->
+        <form action="../controlador/ctrRegistroUsuario.php" method="post" class="needs-validation" novalidate>
           <div class="mb-3">
-              <input type="text" class="form-control" id="nombre" placeholder="Escribe un nombre de usuario...">
+              <input type="text" class="form-control" name="nombre" id="nombre" placeholder="Escribe un nombre de usuario." required>
+              <div class="invalid-feedback">Nombre.</div>
           </div>
           <div class="mb-3">
-              <input type="email" class="form-control" id="email" placeholder="Escribe tu email...">
+              <input type="email" class="form-control" name="emailRegistro" id="email" placeholder="Introduce tu email." required>
+              <div class="invalid-feedback">Introduce tu dirección de correo electrónico.</div>
           </div>
           <div class="mb-3">
-              <input type="password" class="form-control" id="password" placeholder="Elige una contraseña...">
+              <input type="password" class="form-control strength_meter" name="password1" id="password" placeholder="Elige una contraseña." required>
+              <div class="invalid-feedback">Debes introducir una contraseña.</div>
           </div>
           <div class="mb-3">
-              <input type="password" class="form-control" id="password" placeholder="Escribe de nuevo tu contraseña...">
+              <input type="password" class="form-control" name="password2" id="password2" placeholder="Escribe de nuevo tu contraseña." required>
+              <div id="divContrasena2" class="invalid-feedback">Repite tu contraseña.</div>
           </div>
           <div class="d-grid col-12">
-            <a href="perfil.html" role="button" class="btn text-center rounded-pill boton2">Regístrate</a>
+            <input id="inputRegistro" type="submit" class="btn text-center rounded-pill boton2" value="Registrarme">
           </div>
         </form>     
       </div>
     </div>
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous">
+    </script>
+    <script src="../js/cerrarSesion.js"></script>
+    <script>
+        // Función para la validación del formulario.
+        (function () {
+          'use strict'
+
+          var forms = document.querySelectorAll('.needs-validation');
+
+          Array.prototype.slice.call(forms).forEach(function (form) {
+              form.addEventListener('submit', function (event) {
+                let con1 = document.getElementById("password").value;
+                let con2 = document.getElementById("password2").value;             
+
+                if (con1 !== con2) {
+                  Swal.fire({
+                    title: "Las contraseñas no coinciden",
+                    icon: 'warning',
+                    background: 'rgb(253, 253, 253)',
+                    showConfirmButton: true,
+                    timer: 5000,
+                    customClass: {
+                        popup: 'ventanaConfirm'
+                    }       
+                  }); 
+                  
+                  event.preventDefault();
+                }
+
+                if (!form.checkValidity()) {
+                  event.preventDefault();
+                  event.stopPropagation();
+                } 
+
+                form.classList.add('was-validated')
+              }, false)
+          })
+        })()
     </script>
   </body>
 </html>

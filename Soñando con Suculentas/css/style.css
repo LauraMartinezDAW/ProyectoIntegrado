@@ -22,6 +22,26 @@ li {
     color: #669699;
 }
 
+
+/************** Ventana de confirm **************/
+button.swal2-styled.swal2-confirm, button.swal2-styled.swal2-cancel {
+    border-radius: 50rem;
+    margin-bottom: 1rem;
+    padding: .5rem 2.3rem .5rem 2.3rem;
+}
+
+div.swal2-popup {
+    padding: 0;
+}
+
+button.swal2-styled.swal2-confirm:focus {
+    box-shadow: 0 0 0 0;
+}
+
+h2.swal2-title {
+    padding: 0;
+}
+
 #cabecera {
     width: 100%;
     border-bottom: thin solid #669699;
@@ -60,7 +80,7 @@ li.breadcrumb-item a:hover {
     color: white;
 }
 
-.boton2 {
+.boton2, button.swal2-styled.swal2-confirm {
     background-color: #90b6b8;
     border: 2px solid #669699;
     color: white;
@@ -135,7 +155,7 @@ footer a:hover {
 
 /*********************** Formularios ************************/
 
-form#contacto, form#valoracion, form#crearUsuario, form#sistPago, #compraFinalizada {
+form#contacto, form#valoracion, form#crearUsuario, form#sistPago, #compraFinalizada, form#modificarUsuario, form#modificarCategoria, form#modificarTipoPlanta, form#agregarProducto, form#modificarProducto {
     border: 2px solid #669699;
     border-radius: 10px;
     background-color: rgb(253, 253, 253);
@@ -151,7 +171,6 @@ form#contacto input:not([type=submit]):not([type=checkbox]) {
 form#contacto textarea {
     border: 3px solid #669699;
 }
-
 
 
 /*********************** Perfil ************************/

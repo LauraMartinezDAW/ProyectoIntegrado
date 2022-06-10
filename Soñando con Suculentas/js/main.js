@@ -1,9 +1,12 @@
-
     let tabs = document.querySelectorAll(".accordion button");
-
+    
     let botonEditaUsuario = document.getElementById("editarUsuarios");
     let botonEditaPagina = document.getElementById("editarPagina");
     let botonEditaAdministrador = document.getElementById("editarAdministrador");
+
+
+
+//******* Administración *******//
 
     botonEditaUsuario.addEventListener("click", function() {
         tabs[0].click();
