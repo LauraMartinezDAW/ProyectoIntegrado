@@ -1,6 +1,8 @@
 <?php
 /* Controlador que muestra los productos */
-    session_start();
+    if (session_status() == PHP_SESSION_NONE) {
+        session_start();
+    }
     // Llamada al modelo.
     require_once("../modelo/Producto.php");
 

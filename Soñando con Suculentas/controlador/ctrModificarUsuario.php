@@ -2,7 +2,9 @@
 
 /* Controlador para modificar un usuario */
 
-session_start();
+if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+}
 
 // Si el usuario es administrador
 if(isset($_SESSION["admin"])) {  

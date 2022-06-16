@@ -54,9 +54,9 @@
                             </li>';
                             if (isset($_SESSION["admin"])) {
                                 echo "<li class='nav-item'>
-                                      <a class='nav-link fs-5' href='../vista/administracion.php'>Administración</a>    
+                                    <a class='nav-link fs-5' href='../vista/administracion.php'>Administración</a>    
                                 </li>";
-                              }
+                            }
                         echo '</ul>
                         <div class="d-flex p-0 flex-md-row flex-column ancho50">
                             <a href="../vista/perfil.html" class="me-4 px-3 py-2 rounded-pill fw-bold boton text-center" role="button" data-bs-toggle="offcanvas" data-bs-target="<?=$bsTarjet?>" aria-controls="offcanvasExample">
@@ -102,7 +102,19 @@
                                             <div class="card-body text-center px-xl-5 py-0 ">
                                                 <h3 class="card-title text-center colorVerde mt-2">' .  $productos["NOMBRE_CATEGORIA"] . ' ' . $productos["NOMBRE_TIPO"] . ' ' . $productos["TAMANIO"] . '</h3>
                                                 <p class="card-text my-xxl-2 my-0">' . $productos["DESCRIPCION"] . '</p>
-                                                <button class="btn col-5 mb-1 mb-xxl-3 boton2 fs-6 mt-xxl-4" type="submit">Comprar</button>
+                                                <form action="ctrAgregarCesta.php" method="post">
+                                                    <div class="col-2 mx-auto">';
+                                                        echo '<select name="cantidad" class="form-select mt-4" aria-label="Cantidad">                           
+                                                            <option selected>Cantidad</option>';
+                                                            for ($i = 0; $i < $productos["STOCK"]; $i++) {
+                                                                $cant = $i + 1;
+                                                                echo '<option value="' . $cant . '">' . $cant . '</option>';
+                                                            }
+                                                        echo '</select>
+                                                    </div>
+                                                    <input type="hidden" name="idProducto" value="' . $productos["ID_PRODUCTO"] . '">
+                                                    <button class="btn col-5 mb-1 mb-xxl-3 boton2 fs-6 mt-xxl-4" type="submit">Comprar</button>
+                                                </form>
                                             </div>
                                         </div>
                                     </div>
@@ -115,12 +127,20 @@
                             <section class="d-flex justify-content-center flex-column align-items-center my-5">';  
                                 if ($comentarios) {
                                     echo '<h2 class="letraCursiva colorVerde text-center my-3 display-5">Valoraciones</h2>';
+                                    
                                     foreach ($comentarios as $comentario) {
                                         echo '<div class="col-md-7 mb-4">
                                             <div class="card">
-                                                <div class="card-body">
-                                                    <h5 class="card-title text-muted">'. $comentario["NOMBRE_USUARIO"] . ' ' . $comentario["APELLIDO1"] . '</h5>
-                                                    <p class="card-text">' . $comentario["CONTENIDO"] . '</p>
+                                                <div class="row g-0">
+                                                    <div class="col-3">
+                                                    <img src="' . $comentario["FOTO_USUARIO"] . '" class="img-fluid" alt="foto de usuario">
+                                                    </div>
+                                                    <div class="col-9">
+                                                            <div class="card-body">
+                                                                <h5 class="card-title text-muted">'. $comentario["NOMBRE_USUARIO"] . ' ' . $comentario["APELLIDO1"] . '</h5>
+                                                                <p class="card-text">' . $comentario["CONTENIDO"] . '</p>
+                                                            </div>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>';

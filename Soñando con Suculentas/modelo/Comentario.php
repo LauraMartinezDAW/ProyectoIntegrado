@@ -8,7 +8,7 @@ include_once("../db/conexion.php");
     
         // Método para obtener los comentarios de un tipo de planta.
         function getComentarios($idProducto) {
-            $consulta = "SELECT NOMBRE_USUARIO, APELLIDO1, CONTENIDO  
+            $consulta = "SELECT NOMBRE_USUARIO, FOTO_USUARIO, APELLIDO1, CONTENIDO  
                             FROM usuarios JOIN comentarios 
                                 ON usuarios.EMAIL = comentarios.EMAIL_USUARIO
                                     JOIN producto

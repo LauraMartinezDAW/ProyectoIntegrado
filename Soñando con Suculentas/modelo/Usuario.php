@@ -28,7 +28,9 @@ include_once("../db/conexion.php");
 
         // Método para obtener todos los datos del usuario que coincida con el email pasado por parámetro
         function getDatosUsuario($email) {
-            $consulta = "SELECT EMAIL, NOMBRE_USUARIO, APELLIDO1, APELLIDO2, DIRECCION, TELEFONO, ADMINISTRADOR FROM usuarios WHERE email = :email";
+            $consulta = "SELECT EMAIL, FOTO_USUARIO, NOMBRE_USUARIO, APELLIDO1, APELLIDO2, DIRECCION, TELEFONO, ADMINISTRADOR 
+                            FROM usuarios 
+                            WHERE email = :email";
             $pdo = $this->conexion->prepare($consulta);
             $pdo->bindValue(":email", $email);
     
@@ -135,10 +137,11 @@ include_once("../db/conexion.php");
 
 
         // Método para modificar un usuario
-        function modificarUsuario($email,$password, $nombre_usuario, $apellido1, $apellido2, $direccion, $telefono, $administrador) {
+        function modificarUsuario($email, $password, $destino, $nombre_usuario, $apellido1, $apellido2, $direccion, $telefono, $administrador) {
     
             $consulta = "UPDATE usuarios
                             SET	PASSWORD = :password,
+                                FOTO_USUARIO = :destino,
                                 NOMBRE_USUARIO = :nombre_usuario,
                                 APELLIDO1 = :apellido1,
                                 APELLIDO2 = :apellido2,
@@ -149,6 +152,7 @@ include_once("../db/conexion.php");
             $pdo = $this->conexion->prepare($consulta);
             $pdo->bindValue(":email", $email);
             $pdo->bindValue(":password", $password);
+            $pdo->bindValue(":destino", $destino);
             $pdo->bindValue(":nombre_usuario", $nombre_usuario);
             $pdo->bindValue(":apellido1", $apellido1);
             $pdo->bindValue(":apellido2", $apellido2);

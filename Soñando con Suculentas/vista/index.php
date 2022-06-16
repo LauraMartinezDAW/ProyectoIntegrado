@@ -35,7 +35,7 @@
         // Deshabilito el offcanvas de inicio de sesión / registro
         $bsTarjet = "";
         // Habilito el enlace al perfil de usuario
-        $href = "../vista/perfil.html";
+        $href = "../controlador/ctrVerPerfil.php";
 
       } else {
         $usuario = "Inicia sesión";

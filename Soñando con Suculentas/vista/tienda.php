@@ -68,7 +68,7 @@
 
                             echo '</ul>
                             <div class="d-flex p-0 flex-md-row flex-column ancho50">
-                                <a href="../vista/perfil.html" class="me-4 px-3 py-2 rounded-pill fw-bold boton text-center" role="button" data-bs-toggle="offcanvas" data-bs-target="<?=$bsTarjet?>" aria-controls="offcanvasExample">
+                                <a href="ctrVerPerfil.php" class="me-4 px-3 py-2 rounded-pill fw-bold boton text-center" role="button" data-bs-toggle="offcanvas" data-bs-target="<?=$bsTarjet?>" aria-controls="offcanvasExample">
                                     ' . $_SESSION["usuario"] . 
                                 '</a>
                                 <button id="botonCerrarSesion" class="me-4 px-3 py-2 rounded-pill fw-bold boton text-center">Cerrar sesión</button>
@@ -82,24 +82,52 @@
                     </div>
                 </nav>
 
-                <!-- Migas de pan -->
-                <div class="container-fluid mt-3 mb-5">
-                    <nav aria-label="breadcrumb" class="px-4">
-                        <ol class="breadcrumb">
-                        <li class="breadcrumb-item ps-2"><a href="../vista/index.php" class="migasPan">Home</a></li>
-                            <li class="breadcrumb-item active" aria-current="page">
-                                <span class="migasPanActivo">Tienda</span>
-                            </li>
-                        </ol>
-                    </nav>
-                </div>
+                    <!-- Migas de pan -->
+                    <div class="container-fluid mt-3 mb-5 row">
+                        <nav aria-label="breadcrumb" class="ps-4 col">
+                            <ol class="breadcrumb">
+                            <li class="breadcrumb-item ps-2"><a href="../vista/index.php" class="migasPan">Home</a></li>
+                                <li class="breadcrumb-item active" aria-current="page">
+                                    <span class="migasPanActivo">Tienda</span>
+                                </li>
+                            </ol>
+                        </nav>';
 
+                        if (!empty($_SESSION["cesta"])) {
+                            $cesta = $_SESSION["cesta"];
+                            echo '<div class="col text-end pb-5">                        
+                                <button type="button" id="botonCesta" class="btn bi bi-basket text-primary fs-4 border border-primary rounded bg-light py-1 px-3 position-relative" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <span class="position-absolute top-100 start-100 translate-middle badge rounded-circle bg-primary">';
+                                        echo count($_SESSION["cesta"]);
+                                    echo '</span>
+                                </button>
+                                    <ul class="dropdown-menu" aria-labelledby="botonCesta">';
+                                        
+                                        for ($i = 0; $i < count($cesta); $i++) {
+                                            echo '<li class="dropdown-item d-flex justify-content-between"> 
+                                                <div class="me-3">
+                                                    <img src="'. $cesta[$i][0] .'" width="50px" class="img-thumbnail rounded" alt="' . $cesta[$i][1] . '">
+                                                    <span>' . $cesta[$i][1] . '</span>
+                                                    <span> x ' . $cesta[$i][3] . '</span>
+                                                </div>
+                                                <form action="ctrEliminarProductoCesta.php" method="post" >
+                                                    <button id="eliminarProductoCesta" type="submit" class="btn border border-primary"><i class="bi bi-trash3"></i></button>
+                                                    <input type="hidden" name="posProducto" value=' . $i . '>
+                                                </form>
+                                            </li>';
+                                        }
+                                            echo '<li><hr class="dropdown-divider"></li>
+                                            <li><a class="dropdown-item" href="ctrVerCesta.php">Ir a la cesta</a></li>
+                                    </ul>
+                            </div>';
+                        }
+                echo '</div>
                 <main>
                     <section>
                         <div class="container mb-4">
                             <div class="row">
                                 <article>
-                                    <h2 class="my-5 letraCursiva colorVerde display-4 text-center">Plantas disponibles</h2>       
+                                    <h2 class="mb-5 letraCursiva colorVerde display-4 text-center">Plantas disponibles</h2>       
                                     <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4 mt-3">';
 
                                         foreach ($productos as $producto) {

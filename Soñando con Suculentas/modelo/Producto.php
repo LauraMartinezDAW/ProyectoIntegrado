@@ -299,9 +299,7 @@
             $pdo->bindValue(":idProducto", $idProducto);
 
             try {
-                echo "entra en el try";
                 $resultado = $pdo->execute();
-                echo "resultado" . $resultado;
             } catch(PDOException $e) {
                 $resultado = false;
                 echo $e->getMessage();

@@ -66,8 +66,8 @@
 
                 <label for="tlf" class="form-label">Teléfono</label>
                 <div class="input-group mb-3">
-                    <span class="input-group-text" id="basic-addon1"><i class="bi bi-journal-text text-primary"></i></span>
-                    <input  type="tel" id="tlf" name="tlf" class="form-control" placeholder="Número de teléfono" aria-label="Apellidos" aria-describedby="basic-addon1">
+                    <span class="input-group-text" id="basic-addon1"><i class="bi bi-telephone-fill text-primary"></i></i></span>
+                    <input  type="tel" id="tlf" name="tlf" class="form-control" placeholder="Número de teléfono" aria-label="Telefono" aria-describedby="basic-addon1">
                 </div>
 
                 <label class="form-check-label mt-2">Administrador</label>

@@ -27,7 +27,7 @@
         
         echo '<div class="container pb-2">
             <h1 class="letraCursiva text-center display-5 mb-4 pt-3 colorVerde">Modificar usuario</h1>
-            <form id="modificarUsuario" class="col-md-8 col-xl-4 mx-auto p-3 col-12" action="../controlador/ctrFormModificarUsuario.php" method="post">
+            <form id="modificarUsuario" class="col-md-8 col-xl-4 mx-auto p-3 col-12" action="../controlador/ctrFormModificarUsuario.php" method="post" enctype="multipart/form-data">
                 
                 <label class="form-label">E-mail</label>
                 <div class="input-group mb-3">
@@ -36,6 +36,15 @@
                     <!-- Al estar deshabilitado el input de email, paso el valor por el campo oculto -->
                     <input type="hidden" name="emailUsuario" value="' . $datosUsuario["EMAIL"] . '">
                 </div>
+
+                <div class="input-group">    
+                    <div class="col-12 mb-2">
+                        <img src="' . $datosUsuario["FOTO_USUARIO"] . '" width="100px" alt="' . $datosUsuario["FOTO_USUARIO"] . '">
+                        <input type="hidden" name="fotoActual" value="' . $datosUsuario["FOTO_USUARIO"] . '">
+                    </div>
+                    <input type="file" name="foto" class="form-control">
+                </div>
+                <div class="text-muted mb-3">Formatos válidos: png, jpeg, jpg</div>
 
                 <label for="password" class="form-label">Contraseña</label>
                 <div class="input-group mb-3">
