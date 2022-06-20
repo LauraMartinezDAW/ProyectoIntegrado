@@ -1,7 +1,11 @@
 if (hayUsuario) {
 
     function redireccion() {
-        window.location.replace("../controlador/ctrCerrarSesion.php");
+        if (esIndex) {
+            window.location.replace("controlador/ctrCerrarSesion.php");
+        } else {
+            window.location.replace("../controlador/ctrCerrarSesion.php");
+        }
     }
 
     document.getElementById('botonCerrarSesion').addEventListener('click', cerrarSesion);

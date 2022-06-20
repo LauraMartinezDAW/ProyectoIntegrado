@@ -40,26 +40,26 @@
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul class="navbar-nav me-auto mb-2 mb-lg-0 border-bottom">
                             <li class="nav-item">
-                                <a class="nav-link fs-5 me-2" href="index.html">Home</a>
+                                <a class="nav-link fs-5 me-2" href="index.php">Home</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link fs-5 me-2" href="cuidados.html#ubicacion">Ubicación</a>
+                                <a class="nav-link fs-5 me-2" href="cuidados.php#ubicacion">Ubicación</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link fs-5 me-2" href="cuidados.html#riego">Riego</a>
+                                <a class="nav-link fs-5 me-2" href="cuidados.php#riego">Riego</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link fs-5 me-2" href="cuidados.html#sustrato">Sustrato</a>    
+                                <a class="nav-link fs-5 me-2" href="cuidados.php#sustrato">Sustrato</a>    
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link fs-5" href="#contactoFooter">Contacto</a>    
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link fs-5" href="../controlador/ctrTienda.php">Tienda</a>    
+                                <a class="nav-link fs-5" href="../controlador/' . (isset($_SESSION["compraFinalizada"]) ? 'ctrVolverTienda.php' : 'ctrTienda.php') . '">Tienda</a>    
                             </li>
                         </ul>
                         <div class="d-flex p-0">
-                        <a href="../vista/perfil.html" class="me-4 px-3 py-2 rounded-pill fw-bold boton text-center" role="button" data-bs-toggle="offcanvas" data-bs-target="<?=$bsTarjet?>" aria-controls="offcanvasExample">
+                        <a href="../controlador/ctrVerPerfil.php" class="me-4 px-3 py-2 rounded-pill fw-bold boton text-center" role="button" data-bs-toggle="offcanvas" data-bs-target="<?=$bsTarjet?>" aria-controls="offcanvasExample">
                         ' . $_SESSION["usuario"] . '</a>
                         <button id="botonCerrarSesion" class="me-4 px-3 py-2 rounded-pill fw-bold boton text-center">Cerrar sesión</button>
                         <script>
@@ -73,6 +73,7 @@
                 <div class="col-lg-2">
                     <a class="btn boton col-12 mb-3" role="button" id="editarUsuarios" href="#editaUsuario">Editar usuarios</a></li>
                     <a class="btn boton col-12 mb-3" role="button" id="editarPagina" href="#editaPagina">Editar tienda</a></li>
+                    <a class="btn boton col-12 mb-3" role="button" id="gestionarPedidos" href="#gestionaPedidos">Gestionar Pedidos</a></li>
                 </div>
                 <div class="accordion col-lg-8 mx-auto" id="accordionExample">
                     <div  class="accordion-item">
@@ -110,6 +111,21 @@
                             </div>
                         </div>
                     </div>
+
+                    <div  class="accordion-item">
+                    <h2 class="accordion-header" id="headingtres">
+                        <button id="gestionaPedidos" class="accordion-button letraCursiva fs-2" type="button" data-bs-toggle="collapse" data-bs-target="#collapsetres" aria-expanded="true" aria-controls="collapsetres">
+                            Gestionar pedidos
+                        </button>
+                    </h2>
+                    <div id="collapsetres" class="accordion-collapse collapse" aria-labelledby="headingtres" data-bs-parent="#accordionExample">
+                        <div class="accordion-body">
+                            <a href="../controlador/ctrVerPedidos.php" class="list-group-item list-group-item-action">Gestionar Pedido</a>
+                            <a href="../controlador/ctrPedidosNoEnviados.php" class="list-group-item list-group-item-action">Cambiar estado a enviado</a>
+
+                        </div>
+                    </div>
+                </div>
 
                 </div>        
             </main>
@@ -173,6 +189,7 @@
             integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous">
         </script>
         <script src="../js/cerrarSesion.js"></script>
+        <script src="../js/main.js"></script>
 
     </body>
 

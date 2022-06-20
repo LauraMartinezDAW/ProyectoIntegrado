@@ -4,6 +4,8 @@
 // Llamada a la clase conexión
 include_once("../db/conexion.php");
 
+include_once("../funciones/strContains.php");
+
     class Usuario extends Conexion {
         protected $email;
         protected $password;
@@ -95,12 +97,13 @@ include_once("../db/conexion.php");
 
 
         // Método para insertar un usuario en la BBDD
-        function registroUsuario($email, $password, $nombre_usuario, $apellido1= '', $apellido2= '', $direccion= '', $telefono = '', $administrador= 0) {
+        function registroUsuario($email, $password, $destino, $nombre_usuario, $apellido1= '', $apellido2= '', $direccion= '', $telefono = '', $administrador= 0) {
             
-            $consulta = "INSERT INTO usuarios (email, password, nombre_usuario, apellido1, apellido2, direccion, telefono, administrador) VALUES (:email, :password, :nombre_usuario, :apellido1, :apellido2, :direccion, :telefono, :administrador)"; 
+            $consulta = "INSERT INTO usuarios (email, password, foto_usuario, nombre_usuario, apellido1, apellido2, direccion, telefono, administrador) VALUES (:email, :password, :destino, :nombre_usuario, :apellido1, :apellido2, :direccion, :telefono, :administrador)"; 
             $pdo = $this->conexion->prepare($consulta);
             $pdo->bindValue(":email", $email);
             $pdo->bindValue(":password", $password);
+            $pdo->bindValue(":destino", $destino);
             $pdo->bindValue(":nombre_usuario", $nombre_usuario);
             $pdo->bindValue(":apellido1", $apellido1);
             $pdo->bindValue(":apellido2", $apellido2);
@@ -109,7 +112,6 @@ include_once("../db/conexion.php");
             $pdo->bindValue(":administrador", $administrador);
     
             try {
-                echo "entra en el try";
                 $resultado = $pdo->execute();
                 echo "resultado" . $resultado;
             } catch(PDOException $e) {
@@ -184,24 +186,69 @@ include_once("../db/conexion.php");
             return $resultado;
         }
 
-
-
-/*         // Método para obtener el nombre y la dirección del usuario correspondiente al correo pasado por parámetro
-        function getDatosUsuario($email) {
-            $consulta = "SELECT nombre_usuario, direccion FROM usuarios WHERE email = :email";
+        // Método para introducir la dirección
+        function setDireccion($email, $direccion) {
+            
+            $consulta = "UPDATE usuarios
+                            SET DIRECCION = :direccion                     
+                        WHERE EMAIL = :email"; 
+                        
             $pdo = $this->conexion->prepare($consulta);
-            // Establezco que el resultado lo devuelva como un array asociativo.
-            $pdo->setFetchMode(PDO::FETCH_ASSOC);
             $pdo->bindValue(":email", $email);
+            $pdo->bindValue(":direccion", $direccion);
     
             try {
-                $pdo->execute();
-                $resultado = $pdo->fetch();
+                $resultado = $pdo->execute();
+                echo "resultado" . $resultado;
             } catch(PDOException $e) {
-                $resultado = false; 
+                $resultado = false;
+                echo $e->getMessage();
             }
             return $resultado;
-        }  */
+        }
+
+        // Método para introducir el primer apellido
+        function setApellido1($email, $apellido) {
+            
+            $consulta = "UPDATE usuarios
+                            SET APELLIDO1 = :apellido                     
+                        WHERE EMAIL = :email"; 
+                        
+            $pdo = $this->conexion->prepare($consulta);
+            $pdo->bindValue(":email", $email);
+            $pdo->bindValue(":apellido", $apellido);
+    
+            try {
+                $resultado = $pdo->execute();
+                echo "resultado" . $resultado;
+            } catch(PDOException $e) {
+                $resultado = false;
+                echo $e->getMessage();
+            }
+            return $resultado;
+        }
+
+        // Método que filtra los usuarios por el filtro dado
+        function filtrarUsuarios($filtro) {
+            $usuario = new Usuario();
+            $usuarios = $usuario->getUsuarios();
+            $usuariosFiltrados = array();
+
+            if (!empty($filtro)) {
+
+                for ($i = 0; $i < count($usuarios); $i++) {
+
+                    if (str_contains(strtolower($usuarios[$i]["EMAIL"]), strtolower($filtro))) {
+                        array_push($usuariosFiltrados, ($usuario->getDatosUsuario($usuarios[$i]["EMAIL"])));
+                    }
+                }
+
+            } else {
+                $usuariosFiltrados = $usuarios;
+            }  
+            return $usuariosFiltrados;
+        }
+
     }
 
 ?>

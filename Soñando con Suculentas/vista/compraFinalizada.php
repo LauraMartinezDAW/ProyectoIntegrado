@@ -15,6 +15,8 @@
         rel="stylesheet">
     <script src="https://kit.fontawesome.com/16f71d5ae1.js" crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <!-- cdn de sweetAlert -->
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <title>Soñando con suculentas | Compra finalizada</title>
 </head>
 <body>
@@ -45,22 +47,22 @@
                     <div class="collapse navbar-collapse " id="navbarSupportedContent">
                         <ul class="navbar-nav me-auto mb-2 mb-lg-0 border-bottom">
                             <li class="nav-item">
-                                <a class="nav-link fs-5 me-2" href="index.html">Home</a>
+                                <a class="nav-link fs-5 me-2" href="index.php">Home</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link fs-5 me-2" href="cuidados.html#ubicacion">Ubicación</a>
+                                <a class="nav-link fs-5 me-2" href="cuidados.php#ubicacion">Ubicación</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link fs-5 me-2" href="cuidados.html#riego">Riego</a>
+                                <a class="nav-link fs-5 me-2" href="cuidados.php#riego">Riego</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link fs-5 me-2" href="cuidados.html#sustrato">Sustrato</a>    
+                                <a class="nav-link fs-5 me-2" href="cuidados.php#sustrato">Sustrato</a>    
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link fs-5 " href="#contactoFooter">Contacto</a>    
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link fs-5" href="ctrTienda.php">Tienda</a>    
+                                <a class="nav-link fs-5" href="../controlador/ctrVolverTienda.php">Tienda</a>    
                             </li>';
 
                             if (isset($_SESSION["admin"])) {
@@ -118,7 +120,7 @@
                             <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4 ps-4">
                                 <!-- Links -->
                                 <h6 id="contactoFooter" class="text-uppercase fw-bold mb-4">Contacto</h6>
-                                <p><a href="formulario.html"><i class="fas fa-align-justify me-3"></i>Rellena nuestro formulario</a></p>
+                                <p><a href="formulario.php"><i class="fas fa-align-justify me-3"></i>Rellena nuestro formulario</a></p>
                                 <p><a href="mailto:scs@gmail.com"><i class="fas fa-envelope me-3"></i>Mándanos un email</a></p>
                                 <p class="mb-0 fs-5"> Visita nuestras Redes Sociales</p>
                                 <div class="d-flex justify-content-center">
@@ -152,6 +154,6 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous">
     </script>
-        
+    <script src="../js/cerrarSesion.js"></script>
 </body>
 </html>

@@ -14,7 +14,7 @@ if (isset($_SESSION["usuario"])) {
     require_once("../vista/perfil.php");
 
 } else {
-    header("location:../vista/index.php");
+    header("location:../index.php");
 }
 
 ?>

@@ -56,7 +56,7 @@
                 <label for="descripcion" class="form-label">Descripción</label>
                 <div class="input-group mb-3">
                     <span class="input-group-text" id="basic-addon1"><i class="bi bi-journal-text text-primary"></i></span>
-                    <textarea id="descripcion" name="descripcion" class="form-control" rows="5" placeholder="Descripción de la nueva planta" aria-label="Descripcion" aria-describedby="basic-addon1" required></textarea>
+                    <textarea id="descripcion" name="descripcion" class="form-control" rows="5" placeholder="Descripción de la nueva planta" aria-label="Descripcion" aria-describedby="basic-addon1"></textarea>
                 </div>
 
                 <select class="form-select mb-3" aria-label="Tamanio" name="tamanio">
@@ -74,7 +74,7 @@
 
                 <div class="mt-4 d-flex justify-content-around">
                     <input class="btn boton2" type="submit" value="Agregar planta">
-                    <a href="administracion.php" class="btn boton2 px-4">Cancelar</a>
+                    <a href="../vista/administracion.php" class="btn boton2 px-4">Cancelar</a>
                 </div>
             </form>
         </div>';

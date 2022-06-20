@@ -16,9 +16,12 @@ if(isset($_SESSION["usuario"])) {
         $comentario->insertarComentario(valorSeguro($_POST["textArea"]), $idProducto, $_SESSION["email"]);
         
         require_once("ctrVerProducto.php");
+
     } else {
         require_once("ctrVerProducto.php");
     }
 
+} else {
+    header("..index.php");
 }
 ?>

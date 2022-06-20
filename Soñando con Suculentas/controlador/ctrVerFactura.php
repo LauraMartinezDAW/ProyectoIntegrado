@@ -13,7 +13,7 @@ if (isset($_SESSION["usuario"])) {
         require_once("../modelo/Usuario.php");
         
         $usuario = new Usuario();
-        $datosCliente = $usuario->getDatosUsuario($_SESSION["email"]);
+        $datosUsuario = $usuario->getDatosUsuario($_SESSION["email"]);
         
         
         $dompdf = new Dompdf();

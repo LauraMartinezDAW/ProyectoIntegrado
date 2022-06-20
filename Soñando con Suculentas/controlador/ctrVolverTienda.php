@@ -9,8 +9,10 @@ if (isset($_SESSION["usuario"])) {
     $cesta = $_SESSION["cesta"];
 
     if (!empty($cesta)) {
-        // Reinicio la cesta de la compra
+        // Reinicio la cesta de la compra y los stocks originales
         $_SESSION["cesta"] = array();
+        $_SESSION["stock"] = array();
+        unset($_SESSION["compraFinalizada"]);
         
         header("location:ctrTienda.php");
         

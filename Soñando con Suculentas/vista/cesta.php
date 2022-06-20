@@ -46,22 +46,22 @@
                             <div class="collapse navbar-collapse " id="navbarSupportedContent">
                                 <ul class="navbar-nav me-auto mb-2 mb-lg-0 border-bottom">
                                     <li class="nav-item">
-                                        <a class="nav-link fs-5 me-2" href="index.html">Home</a>
+                                        <a class="nav-link fs-5 me-2" href="index.php">Home</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link fs-5 me-2" href="cuidados.html#ubicacion">Ubicación</a>
+                                        <a class="nav-link fs-5 me-2" href="cuidados.php#ubicacion">Ubicación</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link fs-5 me-2" href="cuidados.html#riego">Riego</a>
+                                        <a class="nav-link fs-5 me-2" href="cuidados.php#riego">Riego</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link fs-5 me-2" href="cuidados.html#sustrato">Sustrato</a>    
+                                        <a class="nav-link fs-5 me-2" href="cuidados.php#sustrato">Sustrato</a>    
                                     </li>
                                     <li class="nav-item">
                                         <a class="nav-link fs-5 " href="#contactoFooter">Contacto</a>    
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link fs-5" href="ctrTienda.php">Tienda</a>    
+                                    <a class="nav-link fs-5" href="../controlador/' . (isset($_SESSION["compraFinalizada"]) ? 'ctrVolverTienda.php' : 'ctrTienda.php') . '">Tienda</a>    
                                     </li>';
 
                                     if (isset($_SESSION["admin"])) {
@@ -95,7 +95,7 @@
                                 </li>
                             </ol>
                         </nav>
-
+                    </div>
                     <!-- Contenido principal -->
                     <main>           
                         <div class="container mb-4">
@@ -106,7 +106,7 @@
                                     <section class="mt-4 d-flex flex-column justify-content-center align-items-center">';
                                         for ($i = 0; $i < count($cesta); $i++) {
                                             echo '<div class="card mb-3 col-md-6">
-                                                <div class="row g-0">
+                                                <div class="row g-0 comentario">
                                                     <div class="col-md-4">
                                                         <img src="'. $cesta[$i][0] .'"  class="img-fluid rounded-start w-75" alt="' . $cesta[$i][1] . '">
                                                     </div>
@@ -175,7 +175,7 @@
                                     <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4 ps-4">
                                         <!-- Links -->
                                         <h6 id="contactoFooter" class="text-uppercase fw-bold mb-4">Contacto</h6>
-                                        <p><a href="formulario.html"><i class="fas fa-align-justify me-3"></i>Rellena nuestro formulario</a></p>
+                                        <p><a href="formulario.php"><i class="fas fa-align-justify me-3"></i>Rellena nuestro formulario</a></p>
                                         <p><a href="mailto:scs@gmail.com"><i class="fas fa-envelope me-3"></i>Mándanos un email</a></p>
                                         <p class="mb-0 fs-5"> Visita nuestras Redes Sociales</p>
                                         <div class="d-flex justify-content-center">

@@ -20,6 +20,6 @@
         require_once("../vista/tienda.php");
     // Si no hay sesión se redirige al index
     } else {
-        header("location:../vista/index.php");
+        header("location:../index.php");
     }
 ?>

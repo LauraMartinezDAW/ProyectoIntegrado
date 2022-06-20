@@ -28,7 +28,7 @@ if(isset($_SESSION["admin"])) {
 
             $exten = pathinfo($nombre); //carga datos fichero
             // Si el fichero tiene extensión png, jpeg, jpg
-            if(strcmp(strtolower($exten["extension"]),"png") == 0 || strtolower(($exten["extension"]),"jpeg") == 0 || strtolower(($exten["extension"]),"jpg") == 0) {
+            if(strcmp(strtolower($exten["extension"]),"png") == 0 || strcmp(strtolower($exten["extension"]),"jpeg") == 0 || strcmp(strtolower($exten["extension"]),"jpg") == 0) {
 
                 if($_FILES["foto"]["error"]==0){
                     move_uploaded_file($nomTemp, $destino);
@@ -48,6 +48,7 @@ if(isset($_SESSION["admin"])) {
                     });
                 </script>";
             }
+            
             $precio = valorSeguro($_POST["precio"]);
             $descripcion = valorSeguro($_POST["descripcion"]);
             $tamanio = valorSeguro($_POST["tamanio"]);

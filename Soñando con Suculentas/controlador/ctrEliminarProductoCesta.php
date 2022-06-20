@@ -10,10 +10,14 @@ if (isset($_SESSION["usuario"])) {
 
     if (!empty($cesta)) {
         require_once("../modelo/Producto.php");  
-        
+        $producto = new Producto();
         $posicionProducto = $_POST["posProducto"];
-
+        $idProducto = $cesta[$posicionProducto][6];        
+        $stockOriginal = $_SESSION["stock"][$posicionProducto][1];
+        
+        $producto->modificarStock($stockOriginal, $idProducto);
         array_splice($cesta, $posicionProducto, 1);
+
 
 
         // Actualizo la cesta

@@ -16,6 +16,19 @@
         <script src="https://kit.fontawesome.com/16f71d5ae1.js" crossorigin="anonymous"></script>
         <!-- cdn de sweetAlert -->
         <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <script>
+            function filtrar() {
+                var filtro = document.getElementById("filtro").value;
+                $.ajax({
+                    url : "../filtros/buscadorModProd.php",
+                    method : "POST",
+                    data : {filtro : filtro}
+                }).done(function(listado) {
+                    $("#listaProductos").html(listado);
+                });
+            }
+        </script> 
         <title>Modificar producto</title>
     </head>
 <body>
@@ -24,21 +37,25 @@
     echo '<h1 class="letraCursiva text-center display-5 mb-4 pt-3 colorVerde">Modificar producto</h1>
         
         <div class="d-flex flex-column">           
-            <div class="text-center my-5">
-                Filtrar productos por nombre 
-
-                <input type="text" id="filtro" onkeyup="filtrar()">
+            <div class="text-center my-5 row mx-auto">
+                <div class="col-6 pe-0">
+                    <label for="filtro" class="form-label">Buscar productos por nombre</label> 
+                </div>
+                <div class="col-6">
+                    <input type="text" id="filtro" class="form-control" onkeyup="filtrar()">
+                </div>
             </div>
             
-                <div id="listaUsuarios" class="mx-auto d-flex justify-content-center px-0 px-md-1 px-lg-2">
+                <div id="listaProductos" class="mx-auto d-flex justify-content-center px-0 px-md-1 px-lg-2">
                     <table class="table table-primary table-striped table-hover table align-middle table-responsive-sm">
                         <thead class="text-center table-dark">
-                        <th scope="col">Foto</th><th scope="col">Precio</th><th scope="col">Descripción</th><th scope="col">Tamaño</th><th scope="col">Stock</th><th scope="col" class="text-center">Acciones</th>
+                        <th scope="col" colspan="2">Producto</th><th scope="col">Precio</th><th scope="col">Descripción</th><th scope="col">Tamaño</th><th scope="col">Stock</th><th scope="col" class="text-center">Acciones</th>
                         </thead>';
                         
                             foreach ($productos as $producto) {
                                 echo '<tr>
-                                <td class="text-center"><img src="' . $producto["FOTO"] . '" width="90px" alt="' . $producto["FOTO"] . '"></td>
+                                    <td class="text-center">' . $producto["NOMBRE_CATEGORIA"] . " " . $producto["NOMBRE_TIPO"] . '</td>
+                                    <td class="text-center"><img src="' . $producto["FOTO"] . '" width="90px" alt="' . $producto["FOTO"] . '"></td>
                                     <td scope="row" class="text-center">' . $producto["PRECIO"] . '</td>
                                     <td class="col-4">' . $producto["DESCRIPCION"] . '</td>
                                     <td class="text-center">' . $producto["TAMANIO"] . '</td>

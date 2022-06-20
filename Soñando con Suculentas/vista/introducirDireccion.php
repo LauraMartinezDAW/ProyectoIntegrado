@@ -45,22 +45,22 @@
                     <div class="collapse navbar-collapse " id="navbarSupportedContent">
                         <ul class="navbar-nav me-auto mb-2 mb-lg-0 border-bottom">
                             <li class="nav-item">
-                                <a class="nav-link fs-5 me-2" href="index.html">Home</a>
+                                <a class="nav-link fs-5 me-2" href="../index.php">Home</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link fs-5 me-2" href="cuidados.html#ubicacion">Ubicación</a>
+                                <a class="nav-link fs-5 me-2" href="cuidados.php#ubicacion">Ubicación</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link fs-5 me-2" href="cuidados.html#riego">Riego</a>
+                                <a class="nav-link fs-5 me-2" href="cuidados.php#riego">Riego</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link fs-5 me-2" href="cuidados.html#sustrato">Sustrato</a>    
+                                <a class="nav-link fs-5 me-2" href="cuidados.php#sustrato">Sustrato</a>    
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link fs-5 " href="#contactoFooter">Contacto</a>    
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link fs-5" href="ctrTienda.php">Tienda</a>    
+                            <a class="nav-link fs-5" href="../controlador/' . (isset($_SESSION["compraFinalizada"]) ? 'ctrVolverTienda.php' : 'ctrTienda.php') . '">Tienda</a>    
                             </li>';
 
                             if (isset($_SESSION["admin"])) {
@@ -77,7 +77,8 @@
                             <button id="botonCerrarSesion" class="me-4 px-3 py-2 rounded-pill fw-bold boton text-center">Cerrar sesión</button>
                         </div>
                         <script>
-                            let hayUsuario = ' . isset($_SESSION["usuario"]). ';          
+                            let hayUsuario = ' . isset($_SESSION["usuario"]). ';  
+                            let esIndex = false;         
                         </script>
                     </div>
                 </div>
@@ -85,18 +86,18 @@
 
 
             <main class="container pb-2 my-5">      
-                <form action="../controlador/ctrCompraFinalizada.php" method="post">
-                    <div class="form-check">
-                        <input class="form-check-input mt-2 mt-lg-3" type="radio" name="pago" id="radioPaypal">
-                        <label class="form-check-label letraCursiva colorVerde fs-3" for="radioPaypal">
-                            Paypal
-                        </label>
-                        <div id="datosPaypal">
-                            <div class="mt-4 d-flex justify-content-around">
-                                <input type="submit" class="btn boton2 px-4" value="Finalizar compra">
-                                <a href="../controlador/ctrVerCesta.php" class="btn boton2 px-4">Cancelar</a>
-                            </div>
-                        </div>
+                <h2 class="mb-5 letraCursiva colorVerde display-4 text-center">Introduce tu dirección</h2>
+
+                <form id="introducirDireccion" class="col-md-8 col-xl-4 mx-auto p-3 col-12" action="../controlador/ctrDireccionYapellido.php" method="post">   
+                    <label for="direccion" class="form-label">Dirección</label>
+                    <div class="input-group mb-3">
+                        <span class="input-group-text" id="basic-addon1"><i class="bi bi-journal-text text-primary"></i></span>
+                        <input type="text" id="direccion" name="direccion" class="form-control" placeholder="Introduce tu dirección" aria-label="Apellidos" aria-describedby="basic-addon1">
+                    </div>
+
+                    <div class="mt-4 d-flex justify-content-around">
+                        <input class="btn boton2" type="submit" value="Confirmar dirección">
+                        <a href="../controlador/ctrVerCesta.php" class="btn boton2 px-4">Cancelar</a>
                     </div>
                 </form>
             </main>
@@ -125,7 +126,7 @@
                             <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4 ps-4">
                                 <!-- Links -->
                                 <h6 id="contactoFooter" class="text-uppercase fw-bold mb-4">Contacto</h6>
-                                <p><a href="formulario.html"><i class="fas fa-align-justify me-3"></i>Rellena nuestro formulario</a></p>
+                                <p><a href="formulario.php"><i class="fas fa-align-justify me-3"></i>Rellena nuestro formulario</a></p>
                                 <p><a href="mailto:scs@gmail.com"><i class="fas fa-envelope me-3"></i>Mándanos un email</a></p>
                                 <p class="mb-0 fs-5"> Visita nuestras Redes Sociales</p>
                                 <div class="d-flex justify-content-center">
@@ -148,7 +149,7 @@
                 </div>
             </footer>';
         } else {
-            header("location:../ctrTienda.php");
+            header("location:../controlador/ctrTienda.php");
         }
     } else {
         header("location:../vista/index.php");

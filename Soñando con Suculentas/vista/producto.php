@@ -50,7 +50,7 @@
                                 <a class="nav-link fs-5 " href="#contactoFooter">Contacto</a>    
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link fs-5" href="../controlador/ctrTienda.php">Tienda</a>    
+                            <a class="nav-link fs-5" href="../controlador/' . (isset($_SESSION["compraFinalizada"]) ? 'ctrVolverTienda.php' : 'ctrTienda.php') . '">Tienda</a>   
                             </li>';
                             if (isset($_SESSION["admin"])) {
                                 echo "<li class='nav-item'>
@@ -64,7 +64,8 @@
                             '</a>
                             <button id="botonCerrarSesion" class="me-4 px-3 py-2 rounded-pill fw-bold boton text-center">Cerrar sesión</button>
                             <script>
-                                let hayUsuario = ' . isset($_SESSION["usuario"]). ';          
+                                let hayUsuario = ' . isset($_SESSION["usuario"]). ';   
+                                let esIndex = false;        
                             </script>
 
                         </div>
@@ -104,17 +105,21 @@
                                                 <p class="card-text my-xxl-2 my-0">' . $productos["DESCRIPCION"] . '</p>
                                                 <form action="ctrAgregarCesta.php" method="post">
                                                     <div class="col-2 mx-auto">';
-                                                        echo '<select name="cantidad" class="form-select mt-4" aria-label="Cantidad">                           
-                                                            <option selected>Cantidad</option>';
-                                                            for ($i = 0; $i < $productos["STOCK"]; $i++) {
-                                                                $cant = $i + 1;
-                                                                echo '<option value="' . $cant . '">' . $cant . '</option>';
-                                                            }
-                                                        echo '</select>
+                                                        if ($productos["STOCK"] != 0) {
+                                                            echo '<select name="cantidad" class="form-select mt-4" aria-label="Cantidad">                                                              
+                                                                <option selected>Cantidad</option>';
+                                                                for ($i = 0; $i < $productos["STOCK"]; $i++) {
+                                                                    $cant = $i + 1;
+                                                                    echo '<option value="' . $cant . '">' . $cant . '</option>';
+                                                                }
+                                                            echo '</select>
                                                     </div>
                                                     <input type="hidden" name="idProducto" value="' . $productos["ID_PRODUCTO"] . '">
-                                                    <button class="btn col-5 mb-1 mb-xxl-3 boton2 fs-6 mt-xxl-4" type="submit">Comprar</button>
-                                                </form>
+                                                    <button class="btn col-5 mb-1 mb-xxl-3 boton2 fs-6 mt-xxl-4" type="submit">Comprar</button>';
+                                                        } else {
+                                                            echo '<p class="letraCursiva text-muted fs-4">Sin stock</p>';
+                                                        }
+                                                echo '</form>
                                             </div>
                                         </div>
                                     </div>
@@ -135,7 +140,7 @@
                                                     <div class="col-3">
                                                     <img src="' . $comentario["FOTO_USUARIO"] . '" class="img-fluid" alt="foto de usuario">
                                                     </div>
-                                                    <div class="col-9">
+                                                    <div class="col-9 comentario">
                                                             <div class="card-body">
                                                                 <h5 class="card-title text-muted">'. $comentario["NOMBRE_USUARIO"] . ' ' . $comentario["APELLIDO1"] . '</h5>
                                                                 <p class="card-text">' . $comentario["CONTENIDO"] . '</p>

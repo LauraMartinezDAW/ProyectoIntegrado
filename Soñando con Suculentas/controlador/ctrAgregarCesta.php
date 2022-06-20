@@ -34,13 +34,26 @@
                         $hayProducto = false;
                     }
                 }
-            }
+            } 
 
             // Si ya se ha agregado ese producto a la cesta, sumo la nueva cantidad
             if ($hayProducto) {
                 $cesta[$posProducto][3] += $cantidad;
             // Si se añade por primera vez, creo un array con los datos del producto y lo añado a la cesta
             } else {
+                // Guardo el stock original antes de modificar la base de datos
+
+                $stock = array($idProducto, $datosProducto["STOCK"]);
+
+                var_dump($stock);
+
+                array_push($_SESSION["stock"], $stock);
+
+                var_dump($_SESSION["stock"]);
+
+                // Actualizo la base de datos al nuevo stock
+                $producto->restarStock($datosProducto["STOCK"], $cantidad, $idProducto);
+
                 $datos = array($foto, $nombreProducto, $precio, $cantidad, $tamanio, $totalArticulo, $idProducto);
                 array_push($cesta, $datos);
             }

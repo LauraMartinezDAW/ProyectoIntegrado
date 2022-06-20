@@ -28,6 +28,13 @@
             <h1 class="letraCursiva text-center display-5 mb-4 pt-3 colorVerde">Crear usuario</h1>
             <form id="crearUsuario" class="col-md-8 col-xl-4 mx-auto p-3 col-12" action="../controlador/ctrCrearUsuario.php" method="post">
                 
+                <label class="form-label">Fotografía</label>
+                <div class="input-group mb-1">
+                    <span class="input-group-text" id="basic-addon1"><i class="bi bi-image text-primary"></i></span>
+                    <input type="file" name="foto" class="form-control">
+                </div>
+                <div class="text-muted mb-3">Formatos válidos: png, jpeg, jpg</div>
+
                 <label class="form-label">E-mail</label>
                 <div class="input-group mb-3">
                     <span class="input-group-text" id="basic-addon1"><i class="bi bi-envelope-fill text-primary"></i></span>
@@ -60,8 +67,8 @@
 
                 <label for="direccion" class="form-label">Dirección</label>
                 <div class="input-group mb-3">
-                    <span class="input-group-text" id="basic-addon1"><i class="bi bi-journal-text text-primary"></i></span>
-                    <input type="text" id="direccion" name="direccion" class="form-control" placeholder="Segundo apellido del usuario" aria-label="Apellidos" aria-describedby="basic-addon1">
+                    <span class="input-group-text" id="basic-addon1"><i class="bi bi-geo-alt-fill text-primary"></i></span>
+                    <input type="text" id="direccion" name="direccion" class="form-control" placeholder="Introduce tu dirección" aria-label="Apellidos" aria-describedby="basic-addon1">
                 </div>
 
                 <label for="tlf" class="form-label">Teléfono</label>
@@ -75,7 +82,7 @@
 
                 <div class="mt-4 d-flex justify-content-around">
                     <input class="btn boton2" type="submit" value="Crear usuario">
-                    <a href="administracion.php" class="btn boton2 px-4">Cancelar</a>
+                    <a href="../vista/administracion.php" class="btn boton2 px-4">Cancelar</a>
                 </div>
             </form>
         </div>';

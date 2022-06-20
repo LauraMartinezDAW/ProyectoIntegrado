@@ -4,6 +4,8 @@
     // Llamo a la clase conexión
     include_once("../db/conexion.php");
 
+    include_once("../funciones/strContains.php");
+
     class Producto extends Conexion {
 
         function datosProducto() {
@@ -26,7 +28,7 @@
         
         // Obtener los datos de un producto por su id
         function getDatosProductoId($idProducto) {
-            $consulta = "SELECT NOMBRE_CATEGORIA, TIPO_PLANTA.NOMBRE_TIPO, ID_PRODUCTO, TAMANIO, FOTO, PRECIO, DESCRIPCION, STOCK 
+            $consulta = "SELECT NOMBRE_CATEGORIA, TIPO_PLANTA.NOMBRE_TIPO, ID_PRODUCTO, TAMANIO, FOTO, PRECIO, DESCRIPCION, STOCK, ID_TIPO, ID_CATEGORIA 
                             FROM producto JOIN tipo_planta                     	
                                 ON producto.ID_tipo_planta = tipo_planta.ID_TIPO
                                     JOIN categoria 
@@ -47,17 +49,32 @@
 
         // Método para crear una categoría nueva
         function insertarCategoria($categoria) {
-            $consulta = "INSERT INTO categoria (NOMBRE_CATEGORIA) VALUES (:categoria)"; 
-            $pdo = $this->conexion->prepare($consulta);
-            $pdo->bindValue(":categoria", $categoria);
-    
-            try {
-                $resultado = $pdo->execute();
-            } catch(PDOException $e) {
-                $resultado = false;
-                echo $e->getMessage();
+            $producto = new Producto();
+            $categorias = $producto->getCategorias();
+            $hayCategoria = false;
+
+            foreach ($categorias as $cat) {
+                if ($cat["NOMBRE_CATEGORIA"] == $categoria) {
+                    $hayCategoria = $cat["NOMBRE_CATEGORIA"];
+                }
             }
-            return $resultado;
+
+            if (!$hayCategoria) {
+                $consulta = "INSERT INTO categoria (NOMBRE_CATEGORIA) VALUES (:categoria)"; 
+                $pdo = $this->conexion->prepare($consulta);
+                $pdo->bindValue(":categoria", $categoria);
+        
+                try {
+                    $resultado = $pdo->execute();
+                } catch(PDOException $e) {
+                    $resultado = false;
+                    echo $e->getMessage();
+                }
+                return $resultado;
+                
+            } else {
+                return $hayCategoria;
+            }
         }
 
         // Método para modificar el nombre de una categoría
@@ -112,7 +129,7 @@
             return $resultado[0];
         }
 
-        // Método para obtener el nombre de las categorías
+        // Método para obtener el nombre de los tipos de planta
         function getTiposPlanta() {
             $consulta = "SELECT NOMBRE_TIPO 
                             FROM  tipo_planta";
@@ -166,30 +183,51 @@
 
         // Método para crear un tipo de planta nuevo
         function insertarTipoPlanta($tipo_planta, $categoria) {
-            $idCategoria = new Producto();
+            $producto = new Producto();
+            $tiposPlanta = $producto->getTiposPlanta();
+            $hayTipoPlanta = false;
 
-            $consulta = "INSERT INTO tipo_planta (NOMBRE_TIPO, ID_CAT) VALUES (:tipo_planta, :categoria)"; 
-            $pdo = $this->conexion->prepare($consulta);
-            $pdo->bindValue(":tipo_planta", $tipo_planta);
-            $pdo->bindValue(":categoria", $idCategoria->getIdCat($categoria));
-
-            try {
-                echo "entra en el try";
-                $resultado = $pdo->execute();
-                echo "resultado" . $resultado;
-            } catch(PDOException $e) {
-                $resultado = false;
-                echo $e->getMessage();
+            foreach ($tiposPlanta as $tipo) {
+                if ($tipo["NOMBRE_TIPO"] == $tipo_planta) {
+                    $hayTipoPlanta = $tipo["NOMBRE_TIPO"];
+                }
             }
-            return $resultado; 
+
+            if (!$hayTipoPlanta) {
+                $consulta = "INSERT INTO tipo_planta (NOMBRE_TIPO, ID_CAT) VALUES (:tipo_planta, :categoria)"; 
+                $pdo = $this->conexion->prepare($consulta);
+                $pdo->bindValue(":tipo_planta", $tipo_planta);
+                $pdo->bindValue(":categoria", $producto->getIdCat($categoria));
+
+                try {
+                    $resultado = $pdo->execute();
+
+                } catch(PDOException $e) {
+                    $resultado = false;
+                    echo $e->getMessage();
+                }
+                return $resultado; 
+
+            } else {
+                return $hayTipoPlanta;
+            }
         }
 
         function insertarProducto($categoria, $tipo_planta, $foto, $precio, $descripcion, $tamanio, $stock) {
             $producto = new Producto();
-            $producto->insertarCategoria($categoria);
-            $producto->insertarTipoPlanta($tipo_planta, $categoria);
 
+            $cat = $producto->insertarCategoria($categoria);
+
+            if (is_string($cat)) {
+                $categoria = $cat;
+            }
+
+            $planta = $producto->insertarTipoPlanta($tipo_planta, $categoria);
             $idTipoPlanta = $producto->getIdTipoPlanta($tipo_planta);
+
+            if (is_string($planta)) {
+                $descripcion = $producto->getDescripcion($idTipoPlanta);
+            }          
 
             $consulta = "INSERT INTO producto (ID_TIPO_PLANTA, FOTO, PRECIO, DESCRIPCION, TAMANIO, STOCK) VALUES (:idTipoPlanta, :foto, :precio, :descripcion, :tamanio, :stock)"; 
             $pdo = $this->conexion->prepare($consulta);
@@ -307,6 +345,81 @@
             return $resultado;
         }
 
+        function restarStock($stockActual, $cantidad, $idProducto) {
+            $nuevoStock = $stockActual - $cantidad;
+
+            $consulta = "UPDATE producto
+                            SET STOCK = $nuevoStock
+                        WHERE ID_PRODUCTO = :idProducto"; 
+
+            $pdo = $this->conexion->prepare($consulta);
+            $pdo->bindValue(":idProducto", $idProducto);
+
+            try {
+                $resultado = $pdo->execute();
+            } catch(PDOException $e) {
+                $resultado = false;
+                echo $e->getMessage();
+            }
+            return $resultado;
+        }
+
+        function modificarStock($stock, $idProducto) {
+            $consulta = "UPDATE producto
+                            SET STOCK = $stock
+                        WHERE ID_PRODUCTO = :idProducto"; 
+
+            $pdo = $this->conexion->prepare($consulta);
+            $pdo->bindValue(":idProducto", $idProducto);
+
+            try {
+                $resultado = $pdo->execute();
+            } catch(PDOException $e) {
+                $resultado = false;
+                echo $e->getMessage();
+            }
+            return $resultado;
+        }
+
+        // Método que filtra los productos por el filtro pasado por parámetro
+        function filtrarProductos($filtro) {
+            $producto = new Producto();
+            $productos = $producto->getProductos();
+            $productosFiltrados = array();
+
+            if (!empty($filtro)) {
+
+                for ($i = 0; $i < count($productos); $i++) {
+
+                    if (str_contains(strtolower($productos[$i]["NOMBRE_CATEGORIA"]), strtolower($filtro))) {
+                        array_push($productosFiltrados, ($producto->getDatosProductoId($productos[$i]["ID_PRODUCTO"])));
+                    }
+                }
+
+            } else {
+                $productosFiltrados = $productos;
+            }  
+            return $productosFiltrados;
+        }
+
+        // Obtener la descripción de un producto por su tipo de planta
+        function getDescripcion($idTipoPlanta) {
+            $consulta = "SELECT DESCRIPCION 
+                            FROM producto JOIN tipo_planta                     	
+                                ON producto.ID_tipo_planta = tipo_planta.ID_TIPO
+                        WHERE producto.ID_TIPO_PLANTA = :idTipoPlanta";
+
+            $pdo = $this->conexion->prepare($consulta);
+            $pdo->bindValue(":idTipoPlanta", $idTipoPlanta);
+    
+            try {
+                $pdo->execute();
+                $resultado = $pdo->fetch();
+            } catch(PDOException $e) {
+                $resultado = false;
+            }
+            return $resultado[0];
+        }
     }
 
 ?>

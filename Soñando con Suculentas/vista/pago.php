@@ -49,19 +49,19 @@
                                     <a class="nav-link fs-5 me-2" href="index.php">Home</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link fs-5 me-2" href="cuidados.html#ubicacion">Ubicación</a>
+                                    <a class="nav-link fs-5 me-2" href="cuidados.php#ubicacion">Ubicación</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link fs-5 me-2" href="cuidados.html#riego">Riego</a>
+                                    <a class="nav-link fs-5 me-2" href="cuidados.php#riego">Riego</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link fs-5 me-2" href="cuidados.html#sustrato">Sustrato</a>    
+                                    <a class="nav-link fs-5 me-2" href="cuidados.php#sustrato">Sustrato</a>    
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link fs-5 " href="#contactoFooter">Contacto</a>    
                                 </li>                          
                                 <li class="nav-item">
-                                    <a class="nav-link fs-5" href="ctrTienda.php">Tienda</a>    
+                                <a class="nav-link fs-5" href="../controlador/' . (isset($_SESSION["compraFinalizada"]) ? 'ctrVolverTienda.php' : 'ctrTienda.php') . '">Tienda</a>    
                                 </li>';
 
                             if (isset($_SESSION["admin"])) {
@@ -78,7 +78,8 @@
                                 <button id="botonCerrarSesion" class="me-4 px-3 py-2 rounded-pill fw-bold boton text-center">Cerrar sesión</button>
                             </div>
                             <script>
-                                let hayUsuario = ' . isset($_SESSION["usuario"]). ';          
+                                let hayUsuario = ' . isset($_SESSION["usuario"]). ';  
+                                let esIndex = false;         
                             </script>
                             </div>
                         </div>

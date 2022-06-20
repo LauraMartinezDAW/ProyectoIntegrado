@@ -2,7 +2,7 @@
     
     let botonEditaUsuario = document.getElementById("editarUsuarios");
     let botonEditaPagina = document.getElementById("editarPagina");
-    let botonEditaAdministrador = document.getElementById("editarAdministrador");
+    let botonGestionarPedidos = document.getElementById("gestionarPedidos");
 
 
 
@@ -16,7 +16,7 @@
         tabs[1].click();
     });
 
-    botonEditaAdministrador.addEventListener("click", function() {
+    botonGestionarPedidos.addEventListener("click", function() {
         tabs[2].click();
     });
 

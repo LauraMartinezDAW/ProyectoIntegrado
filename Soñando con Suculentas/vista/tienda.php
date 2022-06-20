@@ -15,6 +15,19 @@
         <script src="https://kit.fontawesome.com/16f71d5ae1.js" crossorigin="anonymous"></script>
         <!-- cdn de sweetAlert -->
         <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <script>
+            function filtrar() {
+                var filtro = document.getElementById("filtro").value;
+                $.ajax({
+                    url : "../filtros/buscador.php",
+                    method : "POST",
+                    data : {filtro : filtro}
+                }).done(function(listado) {
+                    $("#listaProductos").html(listado);
+                });
+            }
+        </script> 
         <title>Tienda | Soñando con Suculentas</title>
     </head>
 
@@ -24,9 +37,11 @@
                 session_start();
             }
 
-            if (isset($_SESSION["usuario"])) {
+            if (isset($_SESSION["usuario"]) && isset($productos)) {
+
                 echo "<script>
                     let hayUsuario = true;
+                    let esIndex = false;</script>';
                 </script>";
                 
                 echo '<header class="mb-lg-5 mb-xl-5 mb-2">
@@ -43,22 +58,22 @@
                         <div class="collapse navbar-collapse " id="navbarSupportedContent">
                             <ul class="navbar-nav me-auto mb-2 mb-lg-0 border-bottom">
                                 <li class="nav-item">
-                                    <a class="nav-link fs-5 me-2" href="index.html">Home</a>
+                                    <a class="nav-link fs-5 me-2" href="../index.php">Home</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link fs-5 me-2" href="cuidados.html#ubicacion">Ubicación</a>
+                                    <a class="nav-link fs-5 me-2" href="cuidados.php#ubicacion">Ubicación</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link fs-5 me-2" href="cuidados.html#riego">Riego</a>
+                                    <a class="nav-link fs-5 me-2" href="cuidados.php#riego">Riego</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link fs-5 me-2" href="cuidados.html#sustrato">Sustrato</a>    
+                                    <a class="nav-link fs-5 me-2" href="cuidados.php#sustrato">Sustrato</a>    
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link fs-5 " href="#contactoFooter">Contacto</a>    
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link fs-5" href="ctrTienda.php">Tienda</a>    
+                                <a class="nav-link fs-5" href="../controlador/' . (isset($_SESSION["compraFinalizada"]) ? 'ctrVolverTienda.php' : 'ctrTienda.php') . '">Tienda</a>    
                                 </li>';
                                 if (isset($_SESSION["admin"])) {
                                     echo "<li class='nav-item'>
@@ -73,9 +88,8 @@
                                 '</a>
                                 <button id="botonCerrarSesion" class="me-4 px-3 py-2 rounded-pill fw-bold boton text-center">Cerrar sesión</button>
                                 
-                                <form class="d-flex ">
-                                    <input  class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                                    <button  class="btn boton" type="submit">Buscar</button>
+                                <form class="d-flex " method="POST">
+                                    <input id="filtro" name="filtro" onkeyup="filtrar()" class="form-control me-2" type="search" placeholder="Buscar" aria-label="Buscar">
                                 </form>
                             </div>
                         </div>
@@ -128,7 +142,7 @@
                             <div class="row">
                                 <article>
                                     <h2 class="mb-5 letraCursiva colorVerde display-4 text-center">Plantas disponibles</h2>       
-                                    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4 mt-3">';
+                                    <div id="listaProductos" class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4 mt-3">';
 
                                         foreach ($productos as $producto) {
                                             echo '<div class="col">
@@ -206,11 +220,13 @@
                 </div>
             </footer>';
         } else {
+            echo "header location de tienda";
             header("location:../vista/index.php");
         }
     ?>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous">
         </script>
         <script src="../js/cerrarSesion.js"></script>
+
     </body>
 </html>

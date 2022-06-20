@@ -17,6 +17,15 @@
     <script src="https://kit.fontawesome.com/16f71d5ae1.js" crossorigin="anonymous"></script>
     <!-- cdn de sweetAlert -->
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <!-- Links necesarios para la comprobación de la contraseña -->
+    <link rel="stylesheet" href="../pass-strength/dist/css/passtrength.css">
+    <script src="//code.jquery.com/jquery.min.js"></script>
+    <script src="../pass-strength/src/jquery.passtrength.js"></script>
+    <style type="text/css">
+        input#password, input#password2 {
+            border-radius: 0;
+        }
+    </style>
     <title>Ajustes de Perfil | Soñando con Suculentas</title>
 </head>
 
@@ -29,6 +38,7 @@
     if (isset($_SESSION["usuario"])) {
         echo "<script>
             let hayUsuario = true;
+            let esIndex = false;
         </script>";
         
         echo '<header class="mb-lg-5 mb-xl-5 mb-2">
@@ -45,7 +55,7 @@
                 <div class="collapse navbar-collapse " id="navbarSupportedContent">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0 border-bottom">
                         <li class="nav-item">
-                            <a class="nav-link fs-5 me-2" href="index.html">Home</a>
+                            <a class="nav-link fs-5 me-2" href="../index.php">Home</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link fs-5 me-2" href="cuidados.html#ubicacion">Ubicación</a>
@@ -60,7 +70,7 @@
                             <a class="nav-link fs-5 " href="#contactoFooter">Contacto</a>    
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link fs-5" href="ctrTienda.php">Tienda</a>    
+                        <a class="nav-link fs-5" href="../controlador/' . (isset($_SESSION["compraFinalizada"]) ? 'ctrVolverTienda.php' : 'ctrTienda.php') . '">Tienda</a>    
                         </li>';
                         if (isset($_SESSION["admin"])) {
                             echo "<li class='nav-item'>
@@ -80,10 +90,10 @@
         </nav>
 
         <!-- Migas de pan -->
-        <div class="container-fluid mt-3 mb-5 row">
+        <div class="container-fluid mt-3 mb-4 row">
             <nav aria-label="breadcrumb" class="ps-4 col">
                 <ol class="breadcrumb">
-                <li class="breadcrumb-item ps-2"><a href="../vista/index.php" class="migasPan">Home</a></li>
+                <li class="breadcrumb-item ps-2"><a href="../index.php" class="migasPan">Home</a></li>
                     <li class="breadcrumb-item active" aria-current="page">
                         <span class="migasPanActivo">Ajustes de perfil</span>
                     </li>
@@ -92,10 +102,13 @@
         </div>';
 
     echo '<main>
-        <div class="container p-4 my-4" >
-            <form action="ctrFormModificarUsuario.php" method="post" class="row needs-validation d-flex flex-column flex-md-row justify-content-center" novalidate enctype="multipart/form-data">
-                <h2 class="letraCursiva display-4 text-center mb-4 colorVerde">Ajustes de perfil</h2>
-                <div class="col-md-3 d-flex flex-column justify-content-center mt-5 py-5 px-3 fondoTarjeta">
+        <h2 class="letraCursiva display-4 text-center mb-4 colorVerde">Perfil</h2>
+        <div class="container row py-4 px-0 my-4 mx-auto">
+            <div class="col-2 p-0">
+                <a href="../controlador/ctrVerPedidos.php" class="btn boton2 mb-1 mb-xl-0">Ver facturas</a>
+            </div>
+            <form action="ctrFormModificarUsuario.php" method="post" class="col-10 needs-validation d-flex flex-column flex-md-row justify-content-center" novalidate enctype="multipart/form-data">
+                <div class="col-md-3 d-flex flex-column justify-content-center py-5 px-3 fondoTarjeta">
                     <p class="letraCursiva text-light text-center fs-4">Selecciona una foto de perfil</p>
                     <div><img src="' . $datosUsuario["FOTO_USUARIO"] . '" class="rounded img-fluid" alt="foto de usuario"></div>
                     <input type="hidden" name="fotoActual" value="' . $datosUsuario["FOTO_USUARIO"] . '">
@@ -103,7 +116,7 @@
                         <input type="file" name="foto" class="form-control form-control-sm mx-auto">
                     </div>
                 </div>
-                <div class="row col-md-7 py-3 ps-5 " id="perfil2">
+                <div class="row col-md-9 py-3 ps-5 " id="perfil2">
                     <div class="mb-3 col-lg-6">
                         <label for="email" class="form-label letraCursiva colorVerde fs-4 mb-1">Email</label>
                         <div class="input-group">
@@ -146,17 +159,18 @@
                     </div>
                     <div class="mb-3 col-lg-6">
                         <label for="pssword" class="form-label letraCursiva colorVerde fs-4 mb-1">Contraseña</label>
-                        <div class="input-group">
-                            <span class="input-group-text" id="basic-addon1"><i class="bi bi-shield-lock-fill text-primary"></i></span>
-                            <input type="password" class="form-control" name="password" id="password" placeholder="Escribe tu contraseña">
+                        <div class="input-group" style="flex-wrap: nowrap;">
+                            <span class="input-group-text py-1" id="basic-addon1"><i class="bi bi-shield-lock-fill text-primary"></i></span>
+                            <input type="password" class="form-control strength_meter rounded-end" name="password" id="password" placeholder="Escribe tu contraseña">
                         </div>
                     </div>
                     <div class="mb-3 col-lg-6">
                         <label for="pssword2" class="form-label letraCursiva colorVerde fs-4 mb-1">Confirma tu contraseña</label>
-                        <div class="input-group">
-                        <span class="input-group-text" id="basic-addon1"><i class="bi bi-shield-lock-fill text-primary"></i></span>
-                        <input type="password" class="form-control" id="password2" placeholder="Escribe tu contraseña">
+                        <div class="input-group" style="flex-wrap: nowrap;">
+                        <span class="input-group-text py-1" id="basic-addon1"><i class="bi bi-shield-lock-fill text-primary"></i></span>
+                        <input type="password" class="form-control rounded-end" id="password2" placeholder="Escribe tu contraseña">
                     </div>
+                    <label id="mensaje_error" class="control-label col-md-12 text-success" style="display: block;">Las constraseñas sí coinciden</label>
                     </div>
 
                     <div class="mb-3 col-lg-6">
@@ -205,7 +219,7 @@
                     <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4 ps-4">
                         <!-- Links -->
                         <h6 id="contactoFooter" class="text-uppercase fw-bold mb-4">Contacto</h6>
-                        <p><a href="formulario.html"><i class="fas fa-align-justify me-3"></i>Rellena nuestro formulario</a></p>
+                        <p><a href="../vista/formulario.php"><i class="fas fa-align-justify me-3"></i>Rellena nuestro formulario</a></p>
                         <p><a href="mailto:scs@gmail.com"><i class="fas fa-envelope me-3"></i>Mándanos un email</a></p>
                         <p class="mb-0 fs-5"> Visita nuestras Redes Sociales</p>
                         <div class="d-flex justify-content-center">
@@ -236,5 +250,94 @@
         integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous">
     </script>
     <script src="../js/cerrarSesion.js"></script>
+    <script>
+        // Función para la validación del formulario.
+        (function () {
+          'use strict'
+
+          var forms = document.querySelectorAll('.needs-validation');
+
+          Array.prototype.slice.call(forms).forEach(function (form) {
+              form.addEventListener('submit', function (event) {
+                let con1 = document.getElementById("password").value;
+                let con2 = document.getElementById("password2").value;             
+
+                if (con1 !== con2) {
+                  Swal.fire({
+                    title: "Las contraseñas no coinciden",
+                    icon: 'warning',
+                    background: 'rgb(253, 253, 253)',
+                    showConfirmButton: true,
+                    timer: 5000,
+                    customClass: {
+                        popup: 'ventanaConfirm'
+                    }       
+                  }); 
+                  
+                  event.preventDefault();
+                }
+
+                if (!form.checkValidity()) {
+                  event.preventDefault();
+                  event.stopPropagation();
+                } 
+
+                form.classList.add('was-validated')
+              }, false)
+          })
+        })()
+
+        // Colores de seguridad contraseña 
+        $('#password').passtrength({
+          minChars: 5
+        });
+
+        $('#password').passtrength({
+          tooltip: false,
+          textWeak: "Débil",
+          textMedium: "Media",
+          textStrong: "Segura",
+          textVeryStrong: "Muy segura",
+        });
+
+        $('#password2').passtrength({
+          minChars: 5
+        });
+
+        $('#password2').passtrength({
+          tooltip: false,
+          textWeak: "Débil",
+          textMedium: "Media",
+          textStrong: "Segura",
+          textVeryStrong: "Muy segura",
+        });
+
+        // Comparar contraseñas
+
+        $(document).ready(function () {
+          $('#mensaje_error').hide();  
+        });
+
+        var cambioDePass = function() {
+          var cont = $('#password').val();
+          var cont2 = $('#password2').val();
+          if (cont == cont2) {
+              $('#mensaje_error').hide();
+              $('#mensaje_error').attr("class", "control-label col-md-12 text-success");
+              $('#mensaje_error').show();
+              $('#mensaje_error').html("Las constraseñas sí coinciden");
+              if (cont == '' && cont2 == '') {
+                $('#mensaje_error').hide();
+              }
+          } else {
+              $('#mensaje_error').attr("class", "control-label col-md-12 text-danger");
+              $('#mensaje_error').html("Las constraseñas no coinciden");
+              $('#mensaje_error').show();
+          }
+        }
+
+      $("#password").on('keyup', cambioDePass);
+      $("#password2").on('keyup', cambioDePass);
+    </script>
 </body>
 </html>

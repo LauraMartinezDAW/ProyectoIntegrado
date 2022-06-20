@@ -11,7 +11,7 @@ require_once("../modelo/Producto.php");
 require_once("../modelo/Comentario.php");
 
 if (isset($_SESSION["usuario"])) {
-    if (isset($_POST["idProducto"]) || isset($_POST["id_producto"])) {
+    if (isset($_POST["idProducto"]) || isset($_POST["id_producto"]) || isset($idProducto)) {
         // Si está establecido idProducto, es que se ha entrado a través de la tienda. Si no, ya tenemos ese 
         // dato al haber entrado desde la vista del producto.
         if (isset($_POST["idProducto"])) {
@@ -28,10 +28,12 @@ if (isset($_SESSION["usuario"])) {
         require_once("../vista/producto.php");
 
     } else {
-        header("location:../vista/tienda.php");
+        echo "header location tienda de ver producto";
+        header("location:ctrTienda.php");
     }
 
 } else {
+    echo "controlador de ver producto";
     header("location:../vista/index.php");
 }
 

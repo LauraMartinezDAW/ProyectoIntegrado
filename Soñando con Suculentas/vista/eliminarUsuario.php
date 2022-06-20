@@ -8,7 +8,7 @@
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
         <link rel="stylesheet" href="../css/bootstrap.css"/>
         <link rel="stylesheet" href="../css/style.css" />
-        <link rel="shortcut icon" href="img/botanic.svg" type="image/x-icon" />
+        <link rel="shortcut icon" href="../img/botanic.svg" type="image/x-icon" />
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Kaushan+Script&family=Merienda:wght@400;700&display=swap"
@@ -16,6 +16,20 @@
         <script src="https://kit.fontawesome.com/16f71d5ae1.js" crossorigin="anonymous"></script>
         <!-- cdn de sweetAlert -->
         <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        <!--Enlace a Ajax y jQuery-->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <script>
+            function filtrar() {
+                var filtro = document.getElementById("filtro").value;
+                $.ajax({
+                    url : "../filtros/buscadorUsuario.php",
+                    method : "POST",
+                    data : {filtro : filtro}
+                }).done(function(listado) {
+                    $("#listaUsuarios").html(listado);
+                });
+            }
+        </script> 
         <title>Eliminar usuario</title>
     </head>
 <body>
@@ -24,10 +38,13 @@
     echo '<h1 class="letraCursiva text-center display-5 mb-4 pt-3 colorVerde">Eliminar usuario</h1>
         
         <div class="d-flex flex-column">           
-            <div class="text-center my-5">
-                Filtrar usuarios por nombre / apellidos que contengan 
-
-                <input type="text" id="filtro" onkeyup="filtrar()">
+            <div class="text-center my-5 row mx-auto">
+                <div class="col-6 pe-0">
+                    <label for="filtro" class="form-label">Buscar usuarios por email</label> 
+                </div>
+                <div class="col-6">
+                    <input type="text" id="filtro" class="form-control" onkeyup="filtrar()">
+                </div>
             </div>
             
                 <div id="listaUsuarios" class="mx-auto d-flex justify-content-center px-0 px-md-1 px-lg-2">

@@ -26,6 +26,7 @@ if(isset($_POST["email"])) {
         $_SESSION["usuario"] = $nombre_usuario["nombre_usuario"];
         
         $_SESSION["cesta"] = array();
+        $_SESSION["stock"] = array();
 
         // Recojo en una variable si el usuario es administrador o no
         $admin = $usuario->esAdministrador($_SESSION["email"]);
@@ -33,18 +34,16 @@ if(isset($_POST["email"])) {
         if ($admin) {
             $_SESSION["admin"] = true;
         }
-        
 
-        // Llamada al controlador para mostrar los productos.
-        require_once("../vista/index.php");
+        header("location:../index.php");
 
     } else {
         // Si los datos no son correctos
-        require_once("../vista/index.php");
+        header("location:../index.php");
     }
 
 // Si no se ha llegado por el formulario se redirige al index para que se inicie sesión
 } else {
-    header("location:../vista/index.php");
+    header("location:../index.php");
 }
 ?>

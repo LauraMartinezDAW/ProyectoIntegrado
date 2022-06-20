@@ -168,7 +168,8 @@ footer a:hover {
 
 /*********************** Formularios ************************/
 
-form#contacto, form#valoracion, form#crearUsuario, div#sistPago, #compraFinalizada, form#modificarUsuario, form#modificarCategoria, form#modificarTipoPlanta, form#agregarProducto, form#modificarProducto {
+form#contacto, form#valoracion, form#crearUsuario, div#sistPago, #compraFinalizada, form#modificarUsuario, 
+form#modificarCategoria, form#modificarTipoPlanta, form#agregarProducto, form#modificarProducto, form#introducirDireccion {
     border: 2px solid #669699;
     border-radius: 10px;
     background-color: rgb(253, 253, 253);
@@ -186,6 +187,7 @@ form#contacto textarea {
 }
 
 
+
 /*********************** Perfil ************************/
 
 .fondoTarjeta {
@@ -201,7 +203,7 @@ div#perfil2 {
     border-top-right-radius: 15px;
     border-bottom-right-radius: 15px;
     margin-left: -20px;  
-    margin-top: 48px;
+    /* margin-top: 48px; */
 }
 
 
@@ -240,10 +242,20 @@ section#sustrato {
 
 /*********************** Producto ************************/
 
-div.card-body, div#tarjetaProducto {
+div.card-body, div#tarjetaProducto, div.comentario {
     background-color: rgb(253, 253, 253);
 }
 
+/*********************** Factura ************************/
+
+#datos {
+    margin: 0 auto;
+}
+
+#datos p.izquierda {
+    float: left;
+    width: 70%;
+}
 
 
 
@@ -277,11 +289,6 @@ div.card-body, div#tarjetaProducto {
     div.tarjetaCesta h3{
         font-size: 26px;
     }
-}
-
-div#contenedorFactura {
-    background: url("../img/botanic2.png") no-repeat center;
-    background-size: auto;
 }
 
 @media (max-width: 991px) and (min-width: 769px) {
